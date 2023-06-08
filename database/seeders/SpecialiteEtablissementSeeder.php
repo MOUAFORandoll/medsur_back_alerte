@@ -14,6 +14,6 @@ class SpecialiteEtablissementSeeder extends Seeder
     public function run(): void
     {
         $specialite_etablissement = SpecialiteEtablissement::factory()->count(200)->create();
-
+    
     }
 }

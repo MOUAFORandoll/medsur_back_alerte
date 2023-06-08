@@ -25,7 +25,7 @@ class Localisation extends Model
         "ville",
         "rue",
         "description",
-
+    
 
     ];
     public function etablissement()

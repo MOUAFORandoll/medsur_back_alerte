@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Etablissement;
 use App\Models\Specialite;
+use App\Models\SpecialiteEtablissement;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -11,20 +12,22 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class SpecialiteEtablissementFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+   
     public function definition(): array
     {
+
         $etablissement = Etablissement::inRandomOrder()->limit(1)->first();
         $specialite = Specialite::inRandomOrder()->limit(1)->first();
-        return [
-            "specialite_id"
-            => $specialite->id,
-            "etablissement_id" =>
-            $etablissement->id,
-        ];
+
+        $exist = SpecialiteEtablissement::where('specialite_id', $specialite->id)
+            ->where('etablissement_id', $etablissement->id,)
+            ->get();
+        return
+            count($exist) == 0 ? [
+                "specialite_id"
+                => $specialite->id,
+                "etablissement_id" =>
+                $etablissement->id,
+            ] : null;
     }
 }

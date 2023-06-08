@@ -319,13 +319,15 @@ class AlerteService
     {
         $point = 0;
 
-        $exist = SpecialiteEtablissement::whereIn('specialite_id', $specialite)
-            ->where('etablissement_id', $etablissement_id)
-            ->get();
 
-        $existIds = $exist->pluck('specialite_id')->toArray();
+        foreach ($specialite as  $valeur) {
+            $exist = SpecialiteEtablissement::where('specialite_id', $valeur)
+                ->where('etablissement_id', $etablissement_id)
+                ->get();
+            $point = $point + count($exist)  !=  0 ? 5 : 0;
+        }
 
-        $point = count($existIds) * 5;
+
         return $point;
     }
     public function bmiGraduation($bmi)
@@ -388,7 +390,7 @@ class AlerteService
             $etablissement_id
         )->get();
 
-        return count($exist) == 0 ? 0 : ($exist->authorisation_service ? 5 : 0);
+        return count($exist) == 0 ? 0 : ($exist->first()->authorisation_service == true ? 5 : 0);
     }
     public function ifEtablissementVille($ville, int  $etablissement_id)
     {
@@ -485,6 +487,42 @@ class AlerteService
         $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
         $distance = $earthRadius * $c;
 
-        return $distance;
+        return $this->distanceGraduation($distance);
+    }
+
+    public function distanceGraduation($distance)
+    {
+        if (
+            0 <= $distance &&
+            $distance <= 20
+        ) {
+            return 5;
+        } else    if (
+            21 <= $distance &&
+            $distance <= 40
+        ) {
+            return 4;
+        } else    if (
+            41 <= $distance &&
+            $distance <= 60
+        ) {
+            return 3;
+        } else    if (
+            61 <= $distance &&
+            $distance <= 80
+        ) {
+            return 2;
+        } else    if (
+            81 <= $distance &&
+            $distance <= 100
+        ) {
+            return 1;
+        } else    if (
+            101 <= $distance
+        ) {
+            return 0;
+        } else {
+            return 0;
+        }
     }
 }

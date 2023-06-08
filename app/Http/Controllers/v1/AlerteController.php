@@ -122,11 +122,11 @@ class AlerteController extends Controller
         foreach ($etablissements  as $valeur) {
             $moyenne
                 =
-                $pLevelUrgence * $level_urgence
-                + $pBMI * $this->alerteService->bmiGraduation($BMI)
+                // $pLevelUrgence * $level_urgence
+                // + $pBMI * $this->alerteService->bmiGraduation($BMI)
 
-                + $pAge * $age
-                + $pNotation * $this->alerteService->getNote($valeur->id)
+                // + $pAge * $age
+               /*  + */ $pNotation * $this->alerteService->getNote($valeur->id)
                 + $pAutorisation_service * $this->alerteService->noteAutorisationService($valeur->id)
                 + $pVille * $this->alerteService->ifEtablissementVille($ville_user, $valeur->id)
                 + $pLocalisation * $this->alerteService->distanceEtablissementUser($latitude, $longitude, $valeur->id)
@@ -135,9 +135,19 @@ class AlerteController extends Controller
 
                 + $pSpecialite * $this->alerteService->ifEtablissementSpeciality($speciality, $valeur->id);
 
-
+            
             $etablissement = Etablissement::where('id', $valeur->id)
                 ->with(['localisation', 'specialites', 'Notation', 'agendas'])->first();
+            $etablissement->moyenne =
+           $pNotation * $this->alerteService->getNote($valeur->id);
+            $etablissement->mauto =  $pAutorisation_service * $this->alerteService->noteAutorisationService($valeur->id);
+               $etablissement->mville =  $pVille * $this->alerteService->ifEtablissementVille($ville_user, $valeur->id);
+            $etablissement->mdis = $pLocalisation * $this->alerteService->distanceEtablissementUser($latitude, $longitude, $valeur->id);
+
+               $etablissement->mga =  $pGarantie * $this->alerteService->noteGarantiEtablissement($valeur->id);
+
+               $etablissement->msp =  $pSpecialite * $this->alerteService->ifEtablissementSpeciality($speciality, $valeur->id);
+
             $etablissement->moyenne = $moyenne;
             $filter_etablissements->push($etablissement);
         }
@@ -145,14 +155,14 @@ class AlerteController extends Controller
         /**
          *  Classer les établissement par ordre décroissant de moyenne
          */
-        $filter_etablissements = $filter_etablissements->sortBy('moyenne');
+        $filter_etablissements = $filter_etablissements->sortByDesc('moyenne');
         $filter_etablissements = $filter_etablissements->values()->all();
 
 
         $alerte = Alerte::create([
             'user_id' => $user_id,
             'name_user' =>  $name_user,
-            
+
             'birthday_user' =>  $birthday_user,
             'poids_user' =>  $poids_user,
             'taille_user' =>  $taille_user,
@@ -212,6 +222,6 @@ class AlerteController extends Controller
     }
 
     public function delete($alerte){
-        
+
     }
 }
