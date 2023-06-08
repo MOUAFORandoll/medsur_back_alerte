@@ -15,6 +15,7 @@ class AuthenticateAccess
      */
     public function handle(Request $request, Closure $next): Response
     {
+        \Log::alert($request->header());
         $credentials = [
             'grant_type' => 'password',
             'client_id' => 2,
