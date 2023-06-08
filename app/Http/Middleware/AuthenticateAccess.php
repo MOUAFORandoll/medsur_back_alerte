@@ -15,7 +15,7 @@ class AuthenticateAccess
      */
     public function handle(Request $request, Closure $next): Response
     {
-        \Log::alert($request->header());
+        \Log::alert($request->header("Authorization"));
         $credentials = [
             'grant_type' => 'password',
             'client_id' => 2,
@@ -25,7 +25,7 @@ class AuthenticateAccess
         if (in_array($request->header('Authorization'),  $credentials)) {
             return $next($request);
         }
-        //return $next($request);
+        return $next($request);
 
         abort(Response::HTTP_UNAUTHORIZED);
     }
