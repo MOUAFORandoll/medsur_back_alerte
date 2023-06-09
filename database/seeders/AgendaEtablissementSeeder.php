@@ -19,12 +19,12 @@ class AgendaEtablissementSeeder extends Seeder
         $agenda = Agenda::get();
         $etablissements = Etablissement::get();
 
-        
+
         foreach ($etablissements as $et) {
             foreach ($agenda as $ag) {
                 AgendaEtablissement::create([
                     'debut' => '08:00',
-                    'fin' => "08:00",
+                    'fin' => "18:00",
                     'agenda_id' => $ag->id,
                     'etablissement_id' => $et->id,
 

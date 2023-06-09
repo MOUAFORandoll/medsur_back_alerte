@@ -74,38 +74,38 @@ class AlerteController extends Controller
             'level_urgence' => 'required|integer',
             'nom_user' => 'required',
             'speciality' => 'required',
-            // 'phone_user' => 'required',
-            'birthday_user' => 'required',
-            'poids_user' => 'required|numeric',
-            'taille_user' => 'required|numeric',
             'email_user' => 'required',
             'ville_user' => 'required',
-            'sexe_user' => 'required',
             'longitude_user' => 'required|numeric',
             'latitude_user' => 'required|numeric',
+            // 'phone_user' => 'required',
+            // 'birthday_user' => 'required',
+            // 'poids_user' => 'required|numeric',
+            // 'taille_user' => 'required|numeric',
+            // 'sexe_user' => 'required',
         ]);
 
         $level_urgence = $request['level_urgence'];
         $name_user = $request['nom_user'];
-        // $phone_user = $request['phone_user'];
         $speciality = $request['speciality'];
-        $poids_user = $request['poids_user'];
-        $birthday_user = $request['birthday_user'];
         $ville_user = $request['ville_user'];
-        $taille_user = $request['taille_user'];
-        $sexe_user = $request['sexe_user'];
         $longitude = $request['longitude_user'];
         $latitude = $request['latitude_user'];
         $description = $request->all()['description'];
         $email_user = $request['email_user'];
         $user_id = $request['user_id'];
-        $taille = $taille_user / 100;
-        $BMI = $poids_user / $taille * $taille;
+        // $sexe_user = $request['sexe_user'];
+        // $taille_user = $request['taille_user'];
+        // $phone_user = $request['phone_user'];
+        // $poids_user = $request['poids_user'];
+        // $birthday_user = $request['birthday_user'];
+        // $taille = $taille_user / 100;
+        // $BMI = $poids_user / $taille * $taille;
 
         // return response()->json(['data' => $this->distanceEtablissementUser($latitude, $longitude, 100)]);
 
         // Obtenir l'âge en années
-        $age =  Carbon::parse($birthday_user)->age;
+        // $age =  Carbon::parse($birthday_user)->age;
         // doit contenir la moyenne et l'etablissement
 
         // $etablissements = Etablissement::has('localisation', 'specialites', 'agendas')->get();
@@ -135,11 +135,10 @@ class AlerteController extends Controller
 
                 + $pSpecialite * $this->alerteService->ifEtablissementSpeciality($speciality, $valeur->id);
 
-            
+
             $etablissement = Etablissement::where('id', $valeur->id)
                 ->with(['localisation', 'specialites', 'Notation', 'agendas'])->first();
-            $etablissement->moyenne =
-           $pNotation * $this->alerteService->getNote($valeur->id);
+
             $etablissement->mauto =  $pAutorisation_service * $this->alerteService->noteAutorisationService($valeur->id);
                $etablissement->mville =  $pVille * $this->alerteService->ifEtablissementVille($ville_user, $valeur->id);
             $etablissement->mdis = $pLocalisation * $this->alerteService->distanceEtablissementUser($latitude, $longitude, $valeur->id);
@@ -163,17 +162,17 @@ class AlerteController extends Controller
             'user_id' => $user_id,
             'name_user' =>  $name_user,
 
-            'birthday_user' =>  $birthday_user,
-            'poids_user' =>  $poids_user,
-            'taille_user' =>  $taille_user,
+            // 'birthday_user' =>  $birthday_user,
+            // 'poids_user' =>  $poids_user,
+            // 'taille_user' =>  $taille_user,
             'email_user' =>  $email_user,
             // 'etablissement_id' =>  $validatedData['etablissement_id'],
             'niveau_urgence' =>  $level_urgence,
-            'description' =>  $description,
+            // 'description' =>  $description,
             'ville' =>  $ville_user,
             'longitude' =>  $longitude,
             'latitude' =>  $latitude,
-            'sexe_user' =>  $sexe_user,
+            // 'sexe_user' =>  $sexe_user,
 
         ]);
 

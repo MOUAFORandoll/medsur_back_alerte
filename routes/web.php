@@ -26,11 +26,9 @@ $router->group(['prefix' => 'api/v1', 'namespace' => 'v1'], function () use ($ro
     $router->group(['prefix' => 'alertes'], function () use ($router) {
         $router->get('/', ['uses' => 'AlerteController@index']);
         $router->post('/', ['uses' => 'AlerteController@store']);
-        $router->post('/info/{user_id}', ['uses' => 'AlerteController@historyInfoUserAlert']);
+        $router->get('/info/{user_id}', ['uses' => 'AlerteController@historyInfoUserAlert']);
         $router->patch('/{alerte}/subscribe', ['uses' => 'AlerteController@subScribeAlerte']);
-
     });
 
     $router->get('/specialities', ['uses' => 'SpecialityController@index']);
-
 });

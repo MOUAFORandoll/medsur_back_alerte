@@ -53,8 +53,8 @@ class  EtablissementSeeder extends Seeder
 
                 "boite_postale" => "Aucune",
                 "pays" => "Cameroun",
-                "ville" => "Douala",
-                "rue" => "410 RUE DU GENERAL LEMAN AKWA,DOUALA",
+                "ville" => "Yaoundé",
+                "rue" => "Yaoundé",
                 "description" => "Sint consequat dolor labore laborum velit mollit aliqua reprehenderit. Non esse duis adipisicing officia pariatur. Labore exercitation consequat qui culpa. Ullamco quis minim aliquip occaecat ex. Reprehenderit in id enim consequat magna non excepteur nulla. Adipisicing tempor sunt exercitation dolore laborum minim aliqua est.",
                 "longitude" => " 11.516658236987354",
                 "latitude" => "3.8722976960242024"
@@ -65,7 +65,7 @@ class  EtablissementSeeder extends Seeder
 
                 "boite_postale" => "Aucune",
                 "pays" => "Cameroun",
-                "ville" => " Yaoundé",
+                "ville" => "Douala",
                 "rue" => "Japoma",
                 "description" => "Sint consequat dolor labore laborum velit mollit aliqua reprehenderit. Non esse duis adipisicing officia pariatur. Labore exercitation consequat qui culpa. Ullamco quis minim aliquip occaecat ex. Reprehenderit in id enim consequat magna non excepteur nulla. Adipisicing tempor sunt exercitation dolore laborum minim aliqua est.",
                 "longitude" => 9.73148269465842,

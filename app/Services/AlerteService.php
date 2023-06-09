@@ -96,7 +96,7 @@ class AlerteService
             $user_id = $validatedData['user_id'];
             $BMI =
                 $poids_user / ($taille_user * $taille_user);
-
+            
             // return response()->json(['data' => $this->distanceEtablissementUser($latitude, $longitude, 100)]);
             // Obtenir la date actuelle
             $dateActuelle = new DateTime();
@@ -324,7 +324,7 @@ class AlerteService
             $exist = SpecialiteEtablissement::where('specialite_id', $valeur)
                 ->where('etablissement_id', $etablissement_id)
                 ->get();
-            $point = $point + count($exist)  !=  0 ? 5 : 0;
+            $point += count($exist)  !=  0 ? 5 : 0;
         }
 
 

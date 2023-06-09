@@ -37,7 +37,7 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
                     "etablissement_id" =>  $etablissement->id
                 ]
             );
-            if ($i = 0) {
+            if ($i == 0) {
                 $data = [1, 2, 3, 4, 5, 79, 59];
                 for ($j = 0; $j < count($data); $j++) {
                     SpecialiteEtablissement::create(
@@ -48,7 +48,7 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
                     );
                 }
             }
-            if ($i = 1) {
+            if ($i == 1) {
                 $data = [1, 2, 18, 87, 5];
                 for ($j = 0; $j < count($data); $j++) {
                     SpecialiteEtablissement::create(
@@ -59,7 +59,7 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
                     );
                 }
             }
-            if ($i = 2) {
+            if ($i == 2) {
                 $data = [4, 5];
                 for ($j = 0; $j < count($data); $j++) {
                     SpecialiteEtablissement::create(
@@ -70,7 +70,7 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
                     );
                 }
             }
-            if ($i = 3) {
+            if ($i == 3) {
                 $data = [2, 13, 4, 5];
                 for ($j = 0; $j < count($data); $j++) {
                     SpecialiteEtablissement::create(
@@ -81,7 +81,7 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
                     );
                 }
             }
-            if ($i = 4) {
+            if ($i == 4) {
                 $data = [2, 10, 4, 15];
                 for ($j = 0; $j < count($data); $j++) {
                     SpecialiteEtablissement::create(
@@ -92,7 +92,7 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
                     );
                 }
             }
-            if ($i = 5) {
+            if ($i == 5) {
                 $data = [11, 4, 5];
                 for ($j = 0; $j < count($data); $j++) {
                     SpecialiteEtablissement::create(
@@ -103,7 +103,7 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
                     );
                 }
             }
-            if ($i = 6) {
+            if ($i == 6) {
                 $data = [13, 15, 7, 4, 5];
                 for ($j = 0; $j < count($data); $j++) {
                     SpecialiteEtablissement::create(
