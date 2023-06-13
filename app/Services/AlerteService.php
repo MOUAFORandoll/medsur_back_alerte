@@ -252,7 +252,7 @@ class AlerteService
             // $validatedData = $request->validate([
             //     'user_id' => 'required|integer',
             // ]);
-            
+
             // $user_id = $validatedData['user_id'];
 
             $listAlerte = Alerte::where('user_id', $user_id)
@@ -315,7 +315,24 @@ class AlerteService
         return count($notE) != 0 ? $somme / count($notE) : 0;
     }
 
-    public function ifEtablissementSpeciality($specialite, int  $etablissement_id)
+    public function matchSpeciality($specialite, int  $etablissement_id)
+    {
+        $sps = [];
+
+        
+        foreach ($specialite as  $valeur) {
+            $exist = SpecialiteEtablissement::where('specialite_id', $valeur)
+                ->where('etablissement_id', $etablissement_id)->with(['specialiteetablissement'])
+                ->get();
+            if (count($exist)  !=  0) {
+                $sps[] = $exist->first()->specialiteetablissement;
+            }
+        }
+
+
+        return $sps;
+    }
+    public function   ifEtablissementSpeciality($specialite, int  $etablissement_id)
     {
         $point = 0;
 
@@ -460,7 +477,8 @@ class AlerteService
                     = $exist->localisation->latitude;
                 $lonEtablissment
                     = $exist->localisation->longitude;
-                return  $this->calculerDistance($latUser, $lonUser, $latEtablissment, $lonEtablissment);
+                return
+                    $this->distanceGraduation($this->calculerDistance($latUser, $lonUser, $latEtablissment, $lonEtablissment));
             } else {
                 return  0;
             }
@@ -486,8 +504,7 @@ class AlerteService
         $a = sin($dlat / 2) * sin($dlat / 2) + cos($lat1) * cos($lat2) * sin($dlon / 2) * sin($dlon / 2);
         $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
         $distance = $earthRadius * $c;
-
-        return $this->distanceGraduation($distance);
+        return $distance;
     }
 
     public function distanceGraduation($distance)

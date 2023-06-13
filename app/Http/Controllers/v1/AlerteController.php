@@ -136,15 +136,16 @@ class AlerteController extends Controller
 
 
             $etablissement = Etablissement::where('id', $valeur->id)
-                ->with(['localisation', 'specialites', 'Notation', 'agendas'])->first();
+                ->with(['localisation', /* 'specialites',  */'Notation', 'agendas'])->first();
 
             $etablissement->mauto =  $pAutorisation_service * $this->alerteService->noteAutorisationService($valeur->id);
             $etablissement->mville =  $pVille * $this->alerteService->ifEtablissementVille($ville_user, $valeur->id);
-            $etablissement->mdis = $pLocalisation * $this->alerteService->distanceEtablissementUser($latitude, $longitude, $valeur->id);
+            $etablissement->distance =  $this->alerteService->calculerDistance($latitude, $longitude, $valeur->localisation->latitude, $valeur->localisation->longitude);
 
             $etablissement->mga =  $pGarantie * $this->alerteService->noteGarantiEtablissement($valeur->id);
 
-            $etablissement->msp =  $pSpecialite * $this->alerteService->ifEtablissementSpeciality($speciality, $valeur->id);
+            $etablissement->specialites_number =   count( $this->alerteService->matchSpeciality($speciality, $valeur->id));
+            $etablissement->specialites =    $this->alerteService->matchSpeciality($speciality, $valeur->id);
 
             $etablissement->moyenne = $moyenne;
             $filter_etablissements->push($etablissement);
@@ -175,7 +176,7 @@ class AlerteController extends Controller
 
         $alerte->save();
         $alerte->specialites()->attach($speciality);
-        
+
         return $this->successResponse(['data' => $filter_etablissements, 'alert_id' => $alerte->id]);
     }
     public function subScribeAlerte(Request $request, $alerte)
