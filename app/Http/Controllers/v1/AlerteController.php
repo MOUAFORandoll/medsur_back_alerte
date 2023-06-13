@@ -78,11 +78,10 @@ class AlerteController extends Controller
             'ville_user' => 'required',
             'longitude_user' => 'required|numeric',
             'latitude_user' => 'required|numeric',
-            // 'phone_user' => 'required',
-            // 'birthday_user' => 'required',
-            // 'poids_user' => 'required|numeric',
-            // 'taille_user' => 'required|numeric',
-            // 'sexe_user' => 'required',
+            'birthday_user' => 'required',
+            'poids_user' => 'required|numeric',
+            'taille_user' => 'required|numeric',
+            'sexe_user' => 'required',
         ]);
 
         $level_urgence = $request['level_urgence'];
@@ -94,18 +93,18 @@ class AlerteController extends Controller
         $description = $request->all()['description'];
         $email_user = $request['email_user'];
         $user_id = $request['user_id'];
-        // $sexe_user = $request['sexe_user'];
-        // $taille_user = $request['taille_user'];
-        // $phone_user = $request['phone_user'];
-        // $poids_user = $request['poids_user'];
-        // $birthday_user = $request['birthday_user'];
-        // $taille = $taille_user / 100;
-        // $BMI = $poids_user / $taille * $taille;
+        $sexe_user = $request['sexe_user'];
+        $taille_user = $request['taille_user'];
 
-        // return response()->json(['data' => $this->distanceEtablissementUser($latitude, $longitude, 100)]);
+        $poids_user = $request['poids_user'];
+        $birthday_user = $request['birthday_user'];
+        $taille = $taille_user / 100;
+        $BMI = $poids_user / $taille * $taille;
+
+        // return response()->json(['data' => $birthday_user]);
 
         // Obtenir l'âge en années
-        // $age =  Carbon::parse($birthday_user)->age;
+        $age =  Carbon::parse($birthday_user)->age;
         // doit contenir la moyenne et l'etablissement
 
         // $etablissements = Etablissement::has('localisation', 'specialites', 'agendas')->get();
@@ -122,11 +121,11 @@ class AlerteController extends Controller
         foreach ($etablissements  as $valeur) {
             $moyenne
                 =
-                // $pLevelUrgence * $level_urgence
-                // + $pBMI * $this->alerteService->bmiGraduation($BMI)
+                $pLevelUrgence * $level_urgence
+                + $pBMI * $this->alerteService->bmiGraduation($BMI)
 
-                // + $pAge * $age
-               /*  + */ $pNotation * $this->alerteService->getNote($valeur->id)
+                + $pAge * $age
+                + $pNotation * $this->alerteService->getNote($valeur->id)
                 + $pAutorisation_service * $this->alerteService->noteAutorisationService($valeur->id)
                 + $pVille * $this->alerteService->ifEtablissementVille($ville_user, $valeur->id)
                 + $pLocalisation * $this->alerteService->distanceEtablissementUser($latitude, $longitude, $valeur->id)
@@ -140,12 +139,12 @@ class AlerteController extends Controller
                 ->with(['localisation', 'specialites', 'Notation', 'agendas'])->first();
 
             $etablissement->mauto =  $pAutorisation_service * $this->alerteService->noteAutorisationService($valeur->id);
-               $etablissement->mville =  $pVille * $this->alerteService->ifEtablissementVille($ville_user, $valeur->id);
+            $etablissement->mville =  $pVille * $this->alerteService->ifEtablissementVille($ville_user, $valeur->id);
             $etablissement->mdis = $pLocalisation * $this->alerteService->distanceEtablissementUser($latitude, $longitude, $valeur->id);
 
-               $etablissement->mga =  $pGarantie * $this->alerteService->noteGarantiEtablissement($valeur->id);
+            $etablissement->mga =  $pGarantie * $this->alerteService->noteGarantiEtablissement($valeur->id);
 
-               $etablissement->msp =  $pSpecialite * $this->alerteService->ifEtablissementSpeciality($speciality, $valeur->id);
+            $etablissement->msp =  $pSpecialite * $this->alerteService->ifEtablissementSpeciality($speciality, $valeur->id);
 
             $etablissement->moyenne = $moyenne;
             $filter_etablissements->push($etablissement);
@@ -161,24 +160,22 @@ class AlerteController extends Controller
         $alerte = Alerte::create([
             'user_id' => $user_id,
             'name_user' =>  $name_user,
-
-            // 'birthday_user' =>  $birthday_user,
-            // 'poids_user' =>  $poids_user,
-            // 'taille_user' =>  $taille_user,
+            'birthday_user' =>  $birthday_user,
+            'poids_user' =>  $poids_user,
+            'taille_user' =>  $taille_user,
             'email_user' =>  $email_user,
-            // 'etablissement_id' =>  $validatedData['etablissement_id'],
             'niveau_urgence' =>  $level_urgence,
-            // 'description' =>  $description,
+            'description' =>  $description,
             'ville' =>  $ville_user,
             'longitude' =>  $longitude,
             'latitude' =>  $latitude,
-            // 'sexe_user' =>  $sexe_user,
+            'sexe_user' =>  $sexe_user,
 
         ]);
 
         $alerte->save();
         $alerte->specialites()->attach($speciality);
-
+        
         return $this->successResponse(['data' => $filter_etablissements, 'alert_id' => $alerte->id]);
     }
     public function subScribeAlerte(Request $request, $alerte)
@@ -216,11 +213,11 @@ class AlerteController extends Controller
 
         return $note;
     }
-    public function update(Request $request, $alerte){
-
+    public function update(Request $request, $alerte)
+    {
     }
 
-    public function delete($alerte){
-
+    public function delete($alerte)
+    {
     }
 }

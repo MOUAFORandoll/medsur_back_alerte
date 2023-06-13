@@ -18,17 +18,16 @@ class CreateAlertesTable extends Migration
             $table->bigInteger('user_id');
             $table->unsignedBigInteger('etablissement_id')->nullable();
             $table->string('name_user');
-
-            // $table->string('birthday_user');
-            // $table->string('poids_user');
-            // $table->string('taille_user');
+            $table->string('birthday_user');
+            $table->string('poids_user');
+            $table->string('taille_user');
             $table->string('email_user');
             $table->string('niveau_urgence');
             $table->longText('description')->nullable();
             $table->longText('ville');
             $table->longText('longitude');
             $table->longText('latitude');
-            // $table->longText('sexe_user');
+            $table->longText('sexe_user');
             $table->foreign('etablissement_id')->references('id')->on('etablissements')->onDelete('RESTRICT')->onUpdate('RESTRICT');
             $table->timestamps();
             $table->softDeletes();
@@ -60,6 +59,7 @@ class CreateAlertesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(['specialite_alerte', 'alertes']);
+        Schema::dropIfExists('specialite_alerte');
+        Schema::dropIfExists('alertes');
     }
 }

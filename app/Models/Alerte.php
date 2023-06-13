@@ -23,9 +23,9 @@ class Alerte extends Model
         "user_id",
         "name_user",
 
-        // "birthday_user",
-        // 'poids_user',
-        // "taille_user",
+        "birthday_user",
+        'poids_user',
+        "taille_user",
         "email_user",
         "etablissement_id",
         "niveau_urgence",
@@ -33,7 +33,7 @@ class Alerte extends Model
         "ville",
         "longitude",
         "latitude",
-        // "sexe_user"
+        "sexe_user"
     ];
 
     public function SpecialiteAlerte()

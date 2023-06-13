@@ -96,7 +96,7 @@ class AlerteService
             $user_id = $validatedData['user_id'];
             $BMI =
                 $poids_user / ($taille_user * $taille_user);
-            
+
             // return response()->json(['data' => $this->distanceEtablissementUser($latitude, $longitude, 100)]);
             // Obtenir la date actuelle
             $dateActuelle = new DateTime();
@@ -252,7 +252,7 @@ class AlerteService
             // $validatedData = $request->validate([
             //     'user_id' => 'required|integer',
             // ]);
-
+            
             // $user_id = $validatedData['user_id'];
 
             $listAlerte = Alerte::where('user_id', $user_id)

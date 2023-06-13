@@ -29,6 +29,8 @@ $router->group(['prefix' => 'api/v1', 'namespace' => 'v1'], function () use ($ro
         $router->get('/info/{user_id}', ['uses' => 'AlerteController@historyInfoUserAlert']);
         $router->patch('/{alerte}/subscribe', ['uses' => 'AlerteController@subScribeAlerte']);
     });
-
+    /**
+     * list specialite
+     */
     $router->get('/specialities', ['uses' => 'SpecialityController@index']);
 });
