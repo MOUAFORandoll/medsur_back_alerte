@@ -114,6 +114,39 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
                     );
                 }
             }
+            if ($i == 7) {
+                $data = [49, 46];
+                for ($j = 0; $j < count($data); $j++) {
+                    SpecialiteEtablissement::create(
+                        [
+                            "specialite_id" => $data[$j],
+                            "etablissement_id" =>  $etablissement->id
+                        ]
+                    );
+                }
+            }
+            if ($i == 8) {
+                $data = [49, 27, 46];
+                for ($j = 0; $j < count($data); $j++) {
+                    SpecialiteEtablissement::create(
+                        [
+                            "specialite_id" => $data[$j],
+                            "etablissement_id" =>  $etablissement->id
+                        ]
+                    );
+                }
+            }
+            if ($i == 9) {
+                $data = [49];
+                for ($j = 0; $j < count($data); $j++) {
+                    SpecialiteEtablissement::create(
+                        [
+                            "specialite_id" => $data[$j],
+                            "etablissement_id" =>  $etablissement->id
+                        ]
+                    );
+                }
+            }
         }
     }
 }

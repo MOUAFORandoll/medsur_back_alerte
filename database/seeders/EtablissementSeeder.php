@@ -92,6 +92,36 @@ class  EtablissementSeeder extends Seeder
                 "longitude" => 9.672658606304942,
                 "latitude" => 4.086131838173032
 
+            ],
+            [
+
+                "boite_postale" => "Aucune",
+                "pays" => "Cameroun",
+                "ville" => "Yaounde",
+                "rue" => "Obobogo ,Yaounde",
+                "description" => "Sint consequat dolor labore laborum velit mollit aliqua reprehenderit. Non esse duis adipisicing officia pariatur. Labore exercitation consequat qui culpa. Ullamco quis minim aliquip occaecat ex. Reprehenderit in id enim consequat magna non excepteur nulla. Adipisicing tempor sunt exercitation dolore laborum minim aliqua est.",
+                "longitude" => 11.503743699598468,
+                "latitude" =>  3.8284749285193658,
+            ],
+            [
+
+                "boite_postale" => "Aucune",
+                "pays" => "Cameroun",
+                "ville" => "Douala",
+                "rue" => "Bonamoussadi ,DOUALA",
+                "description" => "Sint consequat dolor labore laborum velit mollit aliqua reprehenderit. Non esse duis adipisicing officia pariatur. Labore exercitation consequat qui culpa. Ullamco quis minim aliquip occaecat ex. Reprehenderit in id enim consequat magna non excepteur nulla. Adipisicing tempor sunt exercitation dolore laborum minim aliqua est.",
+                "longitude" =>  9.72541001099492,
+                "latitude" =>   4.0836531316119045,
+            ],
+            [
+
+                "boite_postale" => "Aucune",
+                "pays" => "Cameroun",
+                "ville" => "Douala",
+                "rue" => "Bonamoussadi ,DOUALA",
+                "description" => "Sint consequat dolor labore laborum velit mollit aliqua reprehenderit. Non esse duis adipisicing officia pariatur. Labore exercitation consequat qui culpa. Ullamco quis minim aliquip occaecat ex. Reprehenderit in id enim consequat magna non excepteur nulla. Adipisicing tempor sunt exercitation dolore laborum minim aliqua est.",
+                "longitude" =>  9.70114329750195,
+                "latitude" =>     4.052073833358384,
             ]
         ];
 
@@ -178,7 +208,8 @@ class  EtablissementSeeder extends Seeder
 
                 "description" => "Sint consequat dolor labore laborum velit mollit aliqua reprehenderit. Non esse duis adipisicing officia pariatur. Labore exercitation consequat qui culpa. Ullamco quis minim aliquip occaecat ex. Reprehenderit in id enim consequat magna non excepteur nulla. Adipisicing tempor sunt exercitation dolore laborum minim aliqua est.",
 
-            ], [
+            ],
+            [
                 "name" => "CLINIQUE NDASSA",
                 "name2" => "CLINIQUE NDASSA",
                 "code" => "237",
@@ -190,7 +221,40 @@ class  EtablissementSeeder extends Seeder
 
                 "description" => "Sint consequat dolor labore laborum velit mollit aliqua reprehenderit. Non esse duis adipisicing officia pariatur. Labore exercitation consequat qui culpa. Ullamco quis minim aliquip occaecat ex. Reprehenderit in id enim consequat magna non excepteur nulla. Adipisicing tempor sunt exercitation dolore laborum minim aliqua est.",
 
-            ]
+            ], [
+                "name" => "Ad Lucem",
+                "name2" => "Ad Lucem",
+                "code" => "237",
+                "phone" => "699 92 88 11",
+                "phone2" => "699 92 88 11",
+                "email" => "adlucem@yahoo.fr",
+                "siteweb" => "www.test.com",
+                "localisation_id" => 8,
+                "description" => "Sint consequat dolor labore laborum velit mollit aliqua reprehenderit. Non esse duis adipisicing officia pariatur. Labore exercitation consequat qui culpa. Ullamco quis minim aliquip occaecat ex. Reprehenderit in id enim consequat magna non excepteur nulla. Adipisicing tempor sunt exercitation dolore laborum minim aliqua est.",
+
+            ], [
+                "name" => "Ad Lucem Dla",
+                "name2" => "Ad Lucem",
+                "code" => "237",
+                "phone" => "233473725",
+                "phone2" => "233473725",
+                "email" => "adlucem@yahoo.fr",
+                "siteweb" => "www.test.com",
+                "localisation_id" => 9,
+                "description" => "Sint consequat dolor labore laborum velit mollit aliqua reprehenderit. Non esse duis adipisicing officia pariatur. Labore exercitation consequat qui culpa. Ullamco quis minim aliquip occaecat ex. Reprehenderit in id enim consequat magna non excepteur nulla. Adipisicing tempor sunt exercitation dolore laborum minim aliqua est.",
+
+            ], [
+                "name" => "Centre Médico-pédiatrique Beau Bébé, Douala",
+                "name2" => "Centre Médico-pédiatrique Beau Bébé, Douala",
+                "code" => "237",
+                "phone" => "699 86 63 72",
+                "phone2" => "699 86 63 72",
+                "email" => "adlucem@yahoo.fr",
+                "siteweb" => "www.test.com",
+                "localisation_id" => 10,
+                "description" => "Sint consequat dolor labore laborum velit mollit aliqua reprehenderit. Non esse duis adipisicing officia pariatur. Labore exercitation consequat qui culpa. Ullamco quis minim aliquip occaecat ex. Reprehenderit in id enim consequat magna non excepteur nulla. Adipisicing tempor sunt exercitation dolore laborum minim aliqua est.",
+
+            ],
 
         ];
 

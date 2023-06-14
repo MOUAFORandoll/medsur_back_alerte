@@ -121,11 +121,12 @@ class AlerteController extends Controller
         foreach ($etablissements  as $valeur) {
             $moyenne
                 =
-                $pLevelUrgence * $level_urgence
-                + $pBMI * $this->alerteService->bmiGraduation($BMI)
+                // $pLevelUrgence * $level_urgence
+                // + $pBMI * $this->alerteService->bmiGraduation($BMI)
 
-                + $pAge * $age
-                + $pNotation * $this->alerteService->getNote($valeur->id)
+                // + $pAge * $age
+                // +
+                 $pNotation * $this->alerteService->getNote($valeur->id)
                 + $pAutorisation_service * $this->alerteService->noteAutorisationService($valeur->id)
                 + $pVille * $this->alerteService->ifEtablissementVille($ville_user, $valeur->id)
                 + $pLocalisation * $this->alerteService->distanceEtablissementUser($latitude, $longitude, $valeur->id)
@@ -136,17 +137,14 @@ class AlerteController extends Controller
 
 
             $etablissement = Etablissement::where('id', $valeur->id)
-                ->with(['localisation', /* 'specialites',  */'Notation', 'agendas'])->first();
+                ->with(['localisation', /* 'specialites',  */ 'Notation', 'agendas'])->first();
 
-            $etablissement->mauto =  $pAutorisation_service * $this->alerteService->noteAutorisationService($valeur->id);
             $etablissement->mville =  $pVille * $this->alerteService->ifEtablissementVille($ville_user, $valeur->id);
+            $etablissement->authorisation =   $this->alerteService->noteAutorisationService($valeur->id) == 5;
             $etablissement->distance =  $this->alerteService->calculerDistance($latitude, $longitude, $valeur->localisation->latitude, $valeur->localisation->longitude);
-
-            $etablissement->mga =  $pGarantie * $this->alerteService->noteGarantiEtablissement($valeur->id);
-
-            $etablissement->specialites_number =   count( $this->alerteService->matchSpeciality($speciality, $valeur->id));
+            $etablissement->garanti =   $this->alerteService->noteGarantiEtablissement($valeur->id) ==  5;
+            $etablissement->specialites_number =   count($this->alerteService->matchSpeciality($speciality, $valeur->id));
             $etablissement->specialites =    $this->alerteService->matchSpeciality($speciality, $valeur->id);
-
             $etablissement->moyenne = $moyenne;
             $filter_etablissements->push($etablissement);
         }
@@ -154,7 +152,15 @@ class AlerteController extends Controller
         /**
          *  Classer les établissement par ordre décroissant de moyenne
          */
-        $filter_etablissements = $filter_etablissements->sortByDesc('moyenne');
+        // $filter_etablissements = $filter_etablissements->sortByDesc('moyenne');
+        $filter_etablissements = $filter_etablissements
+            ->sortByDesc('moyenne')
+            ->groupBy('moyenne')
+            ->flatMap(function ($group) {
+                return $group->sortBy('distance');
+            });
+
+        // $filter_etablissements = $filter_etablissements->sortByDesc('distance');
         $filter_etablissements = $filter_etablissements->values()->all();
 
 

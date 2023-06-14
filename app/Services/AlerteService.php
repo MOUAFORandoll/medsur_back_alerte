@@ -319,7 +319,7 @@ class AlerteService
     {
         $sps = [];
 
-        
+
         foreach ($specialite as  $valeur) {
             $exist = SpecialiteEtablissement::where('specialite_id', $valeur)
                 ->where('etablissement_id', $etablissement_id)->with(['specialiteetablissement'])
@@ -330,7 +330,7 @@ class AlerteService
         }
 
 
-        return $sps;
+        return  $sps;
     }
     public function   ifEtablissementSpeciality($specialite, int  $etablissement_id)
     {

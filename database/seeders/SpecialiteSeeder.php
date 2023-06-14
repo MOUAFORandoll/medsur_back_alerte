@@ -109,7 +109,7 @@ class SpecialiteSeeder extends Seeder
         ];
 
         foreach ($specialites as $specialite) {
-            Specialite::create(['libelle' => $specialite]);
+            Specialite::create(['libelle' => ucfirst($specialite)]);
         }
     }
 }
