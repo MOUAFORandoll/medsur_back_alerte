@@ -11,10 +11,10 @@ use Illuminate\Http\Request;
 
 class SpecialityController extends Controller
 {
-
+    
     public function index(Request $request)
     {
-        $specialites = Specialite::get(['id', 'libelle']);
+        $specialites = Specialite::get(['id','libelle', 'libelle_en']);
 
         return $this->successResponse($specialites);
     }

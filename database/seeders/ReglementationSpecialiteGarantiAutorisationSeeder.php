@@ -23,21 +23,36 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
             $etablissement
                 = $etablissements[$i];
 
-            ReglementationAutorisation::create(
-                [
-                    "authorisation_service" => ($i == 2 || $i == 4) ? false : true,
-                    "etablissement_id" =>  $etablissement->id
-                ]
-            );
-            Garanti::create(
-                [
-                    "arcce" => ($i == 0 || $i == 3 || $i == 5) ? true : false,
+            // ReglementationAutorisation::create(
+            //     [
+            //         "authorisation_service" => ($i == 0 || $i == 2 || $i == 4) ? false : true,
+            //         "etablissement_id" =>  $etablissement->id
+            //     ]
+            // );
+            // Garanti::create(
+            //     [
+            //         "arcce" => ($i == 0 || $i == 3 || $i == 5) ? false : true,
 
-                    "extra" => "Aucun",
-                    "etablissement_id" =>  $etablissement->id
-                ]
-            );
+            //         "extra" => "Aucun",
+            //         "etablissement_id" =>  $etablissement->id
+            //     ]
+            // );
             if ($i == 0) {
+
+                // ReglementationAutorisation::create(
+                //     [
+                //         "authorisation_service" =>   true,
+                //         "etablissement_id" =>  $etablissement->id
+                //     ]
+                // );
+                Garanti::create(
+                    [
+                        "arcce" =>  false,
+
+                        "extra" => "Aucun",
+                        "etablissement_id" =>  $etablissement->id
+                    ]
+                );
                 $data = [1, 2, 3, 4, 5, 79, 59];
                 for ($j = 0; $j < count($data); $j++) {
                     SpecialiteEtablissement::create(
@@ -49,7 +64,22 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
                 }
             }
             if ($i == 1) {
-                $data = [1, 2, 18, 87, 5];
+
+                ReglementationAutorisation::create(
+                    [
+                        "authorisation_service" =>   true,
+                        "etablissement_id" =>  $etablissement->id
+                    ]
+                );
+                Garanti::create(
+                    [
+                        "arcce" =>  false,
+
+                        "extra" => "Aucun",
+                        "etablissement_id" =>  $etablissement->id
+                    ]
+                );
+                $data = [1, 2, 18, 87, 5, 49, 46, 13, 15, 7, 4, 5];
                 for ($j = 0; $j < count($data); $j++) {
                     SpecialiteEtablissement::create(
                         [
@@ -60,6 +90,20 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
                 }
             }
             if ($i == 2) {
+                ReglementationAutorisation::create(
+                    [
+                        "authorisation_service" =>   true,
+                        "etablissement_id" =>  $etablissement->id
+                    ]
+                );
+                Garanti::create(
+                    [
+                        "arcce" =>  false,
+
+                        "extra" => "Aucun",
+                        "etablissement_id" =>  $etablissement->id
+                    ]
+                );
                 $data = [4, 5];
                 for ($j = 0; $j < count($data); $j++) {
                     SpecialiteEtablissement::create(
@@ -71,6 +115,20 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
                 }
             }
             if ($i == 3) {
+                ReglementationAutorisation::create(
+                    [
+                        "authorisation_service" =>   true,
+                        "etablissement_id" =>  $etablissement->id
+                    ]
+                );
+                Garanti::create(
+                    [
+                        "arcce" =>  false,
+
+                        "extra" => "Aucun",
+                        "etablissement_id" =>  $etablissement->id
+                    ]
+                );
                 $data = [2, 13, 4, 5];
                 for ($j = 0; $j < count($data); $j++) {
                     SpecialiteEtablissement::create(
@@ -82,6 +140,20 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
                 }
             }
             if ($i == 4) {
+                // ReglementationAutorisation::create(
+                //     [
+                //         "authorisation_service" =>   true,
+                //         "etablissement_id" =>  $etablissement->id
+                //     ]
+                // );
+                // Garanti::create(
+                //     [
+                //         "arcce" =>  false,
+
+                //         "extra" => "Aucun",
+                //         "etablissement_id" =>  $etablissement->id
+                //     ]
+                // );
                 $data = [2, 10, 4, 15];
                 for ($j = 0; $j < count($data); $j++) {
                     SpecialiteEtablissement::create(
@@ -93,6 +165,20 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
                 }
             }
             if ($i == 5) {
+                // ReglementationAutorisation::create(
+                //     [
+                //         "authorisation_service" =>   true,
+                //         "etablissement_id" =>  $etablissement->id
+                //     ]
+                // );
+                // Garanti::create(
+                //     [
+                //         "arcce" =>  false,
+
+                //         "extra" => "Aucun",
+                //         "etablissement_id" =>  $etablissement->id
+                //     ]
+                // );
                 $data = [11, 4, 5];
                 for ($j = 0; $j < count($data); $j++) {
                     SpecialiteEtablissement::create(
@@ -104,6 +190,20 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
                 }
             }
             if ($i == 6) {
+                ReglementationAutorisation::create(
+                    [
+                        "authorisation_service" =>   true,
+                        "etablissement_id" =>  $etablissement->id
+                    ]
+                );
+                Garanti::create(
+                    [
+                        "arcce" =>  false,
+
+                        "extra" => "Aucun",
+                        "etablissement_id" =>  $etablissement->id
+                    ]
+                );
                 $data = [13, 15, 7, 4, 5];
                 for ($j = 0; $j < count($data); $j++) {
                     SpecialiteEtablissement::create(
@@ -115,6 +215,20 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
                 }
             }
             if ($i == 7) {
+                ReglementationAutorisation::create(
+                    [
+                        "authorisation_service" =>   true,
+                        "etablissement_id" =>  $etablissement->id
+                    ]
+                );
+                Garanti::create(
+                    [
+                        "arcce" =>  false,
+
+                        "extra" => "Aucun",
+                        "etablissement_id" =>  $etablissement->id
+                    ]
+                );
                 $data = [49, 46];
                 for ($j = 0; $j < count($data); $j++) {
                     SpecialiteEtablissement::create(
@@ -126,6 +240,20 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
                 }
             }
             if ($i == 8) {
+                ReglementationAutorisation::create(
+                    [
+                        "authorisation_service" =>   true,
+                        "etablissement_id" =>  $etablissement->id
+                    ]
+                );
+                Garanti::create(
+                    [
+                        "arcce" =>  false,
+
+                        "extra" => "Aucun",
+                        "etablissement_id" =>  $etablissement->id
+                    ]
+                );
                 $data = [49, 27, 46];
                 for ($j = 0; $j < count($data); $j++) {
                     SpecialiteEtablissement::create(
@@ -137,6 +265,20 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
                 }
             }
             if ($i == 9) {
+                ReglementationAutorisation::create(
+                    [
+                        "authorisation_service" =>   true,
+                        "etablissement_id" =>  $etablissement->id
+                    ]
+                );
+                Garanti::create(
+                    [
+                        "arcce" =>  false,
+
+                        "extra" => "Aucun",
+                        "etablissement_id" =>  $etablissement->id
+                    ]
+                );
                 $data = [49];
                 for ($j = 0; $j < count($data); $j++) {
                     SpecialiteEtablissement::create(

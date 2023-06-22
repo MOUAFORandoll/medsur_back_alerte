@@ -341,7 +341,9 @@ class AlerteService
             $exist = SpecialiteEtablissement::where('specialite_id', $valeur)
                 ->where('etablissement_id', $etablissement_id)
                 ->get();
-            $point += count($exist)  !=  0 ? 5 : 0;
+            if ($point == 0) {
+                $point += count($exist)  !=  0 ? 5 : 0;
+            }
         }
 
 

@@ -17,6 +17,7 @@ class CreateSpecialitesTable extends Migration
             $table->id();
             $table->string('uuid')->nullable();
             $table->string('libelle');
+            $table->string('libelle_en')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -139,7 +139,7 @@ class  EtablissementSeeder extends Seeder
 
                 "description" => "Sint consequat dolor labore laborum velit mollit aliqua reprehenderit. Non esse duis adipisicing officia pariatur. Labore exercitation consequat qui culpa. Ullamco quis minim aliquip occaecat ex. Reprehenderit in id enim consequat magna non excepteur nulla. Adipisicing tempor sunt exercitation dolore laborum minim aliqua est.",
 
-
+            
             ],
             [
                 "name" => "FONDATION MEDICALE JOSEPH PERRAIN",
