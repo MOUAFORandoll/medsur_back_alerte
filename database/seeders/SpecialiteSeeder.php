@@ -107,7 +107,7 @@ class SpecialiteSeeder extends Seeder
             "ambulance"
 
         ];
-        $specialties_en = [
+        $specialites_en = [
             "allergology",
             "anatomo-pathology",
             "andrology",
@@ -202,7 +202,7 @@ class SpecialiteSeeder extends Seeder
         ];
 
         for ($i = 0; $i < count($specialites); $i++) {
-            Specialite::create(['libelle' => $specialites[$i], 'libelle_en' => $specialties_en[$i]]);
+            Specialite::create(['libelle' => $specialites[$i], 'libelle_en' => $specialites_en[$i]]);
         }
     }
 }

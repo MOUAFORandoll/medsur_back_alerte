@@ -65,8 +65,10 @@ class Etablissement extends Model
 
         return  $this->hasMany(SpecialiteEtablissement::class, 'etablissement_id')->with(['Specialite',]);
     }
-    
-    public function specialites(){
+
+
+    public function specialites()
+    {
         return $this->belongsToMany(Specialite::class, SpecialiteEtablissement::class);
     }
     public function garanti()
@@ -95,5 +97,16 @@ class Etablissement extends Model
     {
         return $this->belongsToMany(Agenda::class, AgendaEtablissement::class)
             ->withPivot(["fin",  "debut"]);
+    }
+    public function CategorieEtablissement()
+    {
+
+        return  $this->hasMany(CategorieEtablissement::class, 'etablissement_id')->with(['Categorie',]);
+    }
+
+
+    public function categories()
+    {
+        return $this->belongsToMany(Categorie::class, CategorieEtablissement::class);
     }
 }

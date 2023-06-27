@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\v1;
 
+use App\Models\Categorie;
+use App\Models\CategorieEtablissement;
 use App\Models\SpecialiteEtablissement;
 use App\Services\NotationService;
 use Illuminate\Http\Request;
@@ -68,7 +70,6 @@ class AlerteController extends Controller
 
         $pNotation = 1;
         $pLocalisation = 1;
-
         $this->validate($request, [
             'user_id' => 'required|integer',
             'level_urgence' => 'required|integer',
@@ -126,7 +127,7 @@ class AlerteController extends Controller
 
                 // + $pAge * $age
                 // +
-                 $pNotation * $this->alerteService->getNote($valeur->id)
+                $pNotation * $this->alerteService->getNote($valeur->id)
                 + $pAutorisation_service * $this->alerteService->noteAutorisationService($valeur->id)
                 + $pVille * $this->alerteService->ifEtablissementVille($ville_user, $valeur->id)
                 + $pLocalisation * $this->alerteService->distanceEtablissementUser($latitude, $longitude, $valeur->id)
@@ -137,7 +138,7 @@ class AlerteController extends Controller
 
 
             $etablissement = Etablissement::where('id', $valeur->id)
-                ->with(['localisation', /* 'specialites',  */ 'Notation', 'agendas'])->first();
+                ->with(['localisation', 'categories', /* 'specialites',  */ 'Notation', 'agendas'])->first();
 
             $etablissement->mville =  $pVille * $this->alerteService->ifEtablissementVille($ville_user, $valeur->id);
             $etablissement->authorisation =   $this->alerteService->noteAutorisationService($valeur->id) == 5;
@@ -182,8 +183,8 @@ class AlerteController extends Controller
 
         $alerte->save();
         $alerte->specialites()->attach($speciality);
-
-        return $this->successResponse(['data' => $filter_etablissements, 'alert_id' => $alerte->id]);
+        $categorie = Categorie::get();
+        return $this->successResponse(['data' => $filter_etablissements, 'categories' => $categorie, 'alert_id' => $alerte->id]);
     }
     public function subScribeAlerte(Request $request, $alerte)
     {

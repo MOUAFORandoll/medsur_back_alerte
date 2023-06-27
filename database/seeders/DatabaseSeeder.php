@@ -15,12 +15,13 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             // LocalisationSeeder::class,
+            CategorieSeeder::class,
             SpecialiteSeeder::class,
             EtablissementSeeder::class,
             // SpecialiteEtablissementSeederC::class,
             ReglementationSpecialiteGarantiAutorisationSeeder::class,
             AgendaSeeder::class,
-
+            CategorieEtablissementSeeder::class,
             // NotationSeeder::class,
             AgendaEtablissementSeeder::class,
             // AlerteSeeder::class,

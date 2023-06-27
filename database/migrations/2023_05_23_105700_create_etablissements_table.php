@@ -38,13 +38,14 @@ class CreateEtablissementsTable extends Migration
             $table->unsignedBigInteger('specialite_id');
             $table->unsignedBigInteger('etablissement_id');
             // Ajoutez d'autres colonnes si nécessaire
-            
+
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('specialite_id')->references('id')->on('specialites')->onDelete('cascade');
             $table->foreign('etablissement_id')->references('id')->on('etablissements')->onDelete('cascade');
         });
+      
         // Schema::create('specialite_etablissement', function (Blueprint $table) {
         //     $table->id();
         //     $table->unsignedBigInteger('specialite_id')->nullable();
