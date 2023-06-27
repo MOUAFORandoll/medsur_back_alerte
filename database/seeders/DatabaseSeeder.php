@@ -21,7 +21,6 @@ class DatabaseSeeder extends Seeder
             // SpecialiteEtablissementSeederC::class,
             ReglementationSpecialiteGarantiAutorisationSeeder::class,
             AgendaSeeder::class,
-            CategorieEtablissementSeeder::class,
             // NotationSeeder::class,
             AgendaEtablissementSeeder::class,
             // AlerteSeeder::class,

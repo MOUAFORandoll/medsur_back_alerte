@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CategorieEtablissement;
 use App\Models\Etablissement;
 use App\Models\Garanti;
 use App\Models\ReglementationAutorisation;
@@ -62,6 +63,15 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
                         ]
                     );
                 }
+                $dataCategorie = [1, 2, 3];
+                for ($j = 0; $j < count($dataCategorie); $j++) {
+                    CategorieEtablissement::create(
+                        [
+                            "categorie_id" => $dataCategorie[$j],
+                            "etablissement_id" =>  $etablissement->id
+                        ]
+                    );
+                }
             }
             if ($i == 1) {
 
@@ -84,6 +94,15 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
                     SpecialiteEtablissement::create(
                         [
                             "specialite_id" => $data[$j],
+                            "etablissement_id" =>  $etablissement->id
+                        ]
+                    );
+                }
+                $dataCategorie = [2, 3];
+                for ($j = 0; $j < count($dataCategorie); $j++) {
+                    CategorieEtablissement::create(
+                        [
+                            "categorie_id" => $dataCategorie[$j],
                             "etablissement_id" =>  $etablissement->id
                         ]
                     );
@@ -113,6 +132,15 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
                         ]
                     );
                 }
+                $dataCategorie = [1, 2, 4];
+                for ($j = 0; $j < count($dataCategorie); $j++) {
+                    CategorieEtablissement::create(
+                        [
+                            "categorie_id" => $dataCategorie[$j],
+                            "etablissement_id" =>  $etablissement->id
+                        ]
+                    );
+                }
             }
             if ($i == 3) {
                 ReglementationAutorisation::create(
@@ -134,6 +162,15 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
                     SpecialiteEtablissement::create(
                         [
                             "specialite_id" => $data[$j],
+                            "etablissement_id" =>  $etablissement->id
+                        ]
+                    );
+                }
+                $dataCategorie = [1,];
+                for ($j = 0; $j < count($dataCategorie); $j++) {
+                    CategorieEtablissement::create(
+                        [
+                            "categorie_id" => $dataCategorie[$j],
                             "etablissement_id" =>  $etablissement->id
                         ]
                     );
@@ -163,6 +200,15 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
                         ]
                     );
                 }
+                $dataCategorie = [3];
+                for ($j = 0; $j < count($dataCategorie); $j++) {
+                    CategorieEtablissement::create(
+                        [
+                            "categorie_id" => $dataCategorie[$j],
+                            "etablissement_id" =>  $etablissement->id
+                        ]
+                    );
+                }
             }
             if ($i == 5) {
                 // ReglementationAutorisation::create(
@@ -184,6 +230,15 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
                     SpecialiteEtablissement::create(
                         [
                             "specialite_id" => $data[$j],
+                            "etablissement_id" =>  $etablissement->id
+                        ]
+                    );
+                }
+                $dataCategorie = [1,  4];
+                for ($j = 0; $j < count($dataCategorie); $j++) {
+                    CategorieEtablissement::create(
+                        [
+                            "categorie_id" => $dataCategorie[$j],
                             "etablissement_id" =>  $etablissement->id
                         ]
                     );
@@ -213,6 +268,15 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
                         ]
                     );
                 }
+                $dataCategorie = [2, 4];
+                for ($j = 0; $j < count($dataCategorie); $j++) {
+                    CategorieEtablissement::create(
+                        [
+                            "categorie_id" => $dataCategorie[$j],
+                            "etablissement_id" =>  $etablissement->id
+                        ]
+                    );
+                }
             }
             if ($i == 7) {
                 ReglementationAutorisation::create(
@@ -234,6 +298,15 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
                     SpecialiteEtablissement::create(
                         [
                             "specialite_id" => $data[$j],
+                            "etablissement_id" =>  $etablissement->id
+                        ]
+                    );
+                }
+                $dataCategorie = [3];
+                for ($j = 0; $j < count($dataCategorie); $j++) {
+                    CategorieEtablissement::create(
+                        [
+                            "categorie_id" => $dataCategorie[$j],
                             "etablissement_id" =>  $etablissement->id
                         ]
                     );
@@ -263,6 +336,15 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
                         ]
                     );
                 }
+                $dataCategorie = [1];
+                for ($j = 0; $j < count($dataCategorie); $j++) {
+                    CategorieEtablissement::create(
+                        [
+                            "categorie_id" => $dataCategorie[$j],
+                            "etablissement_id" =>  $etablissement->id
+                        ]
+                    );
+                }
             }
             if ($i == 9) {
                 ReglementationAutorisation::create(
@@ -284,6 +366,15 @@ class ReglementationSpecialiteGarantiAutorisationSeeder extends Seeder
                     SpecialiteEtablissement::create(
                         [
                             "specialite_id" => $data[$j],
+                            "etablissement_id" =>  $etablissement->id
+                        ]
+                    );
+                }
+                $dataCategorie = [1, 2, 3, 4];
+                for ($j = 0; $j < count($dataCategorie); $j++) {
+                    CategorieEtablissement::create(
+                        [
+                            "categorie_id" => $dataCategorie[$j],
                             "etablissement_id" =>  $etablissement->id
                         ]
                     );
