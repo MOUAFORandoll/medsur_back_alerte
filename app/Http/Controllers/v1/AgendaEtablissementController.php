@@ -41,21 +41,4 @@ class AgendaEtablissementController extends Controller
         return
             $notations;
     }
-    public function getAgenda(Request $request)
-    {
-        $validatedData = $request->validate([
-
-            'praticien_id' => 'required|integer',
-
-
-
-        ]);
-        $agenda =
-            $this->agendaService->getAgenda($validatedData['praticien_id']);
-
-
-
-        return
-            $agenda;
-    }
 }

@@ -14,8 +14,10 @@ class AgendaSeeder extends Seeder
     public function run()
     {
         $data = ['Lundi', 'Mardi', "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
-        foreach ($data as $sa) {
-            Agenda::create(['libelle' => $sa]);
+        $dataEn = ['Monday', 'Tuesday', "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+        for ($i = 0; $i < count($data); $i++) {
+            Agenda::create(['libelle' =>$data[$i], 'libelle_en' => $dataEn[$i]]);
         }
     }
 }

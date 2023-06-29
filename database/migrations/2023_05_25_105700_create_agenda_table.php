@@ -16,6 +16,7 @@ class CreateAgendaTable extends Migration
         Schema::create('agendas', function (Blueprint $table) {
             $table->id();
             $table->string('libelle')->nullable();
+            $table->string('libelle_en')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -27,7 +28,7 @@ class CreateAgendaTable extends Migration
             $table->string('debut')->nullable();
 
             $table->string('fin')->nullable();
-            
+
             $table->foreign('agenda_id')
                 ->references('id')
                 ->on('agendas')

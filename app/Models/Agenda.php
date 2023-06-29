@@ -10,7 +10,7 @@ class Agenda extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ["libelle"];
+    protected $fillable = ["libelle","libelle_en"];
 
 
 
@@ -18,7 +18,7 @@ class Agenda extends Model
     {
         return $this->hasMany(AgendaEtablissement::class, 'agenda_id');
     }
-    
+
     public function etablissements(){
         return $this->belongsToMany(Etablissement::class, AgendaEtablissement::class);
     }
