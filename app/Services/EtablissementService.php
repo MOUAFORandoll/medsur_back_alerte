@@ -20,7 +20,7 @@ class EtablissementService
     {
     }
 
-   
+
     public function index(Request $request)
     {
         $size = $request->size ?? 25;
@@ -30,7 +30,6 @@ class EtablissementService
 
     public function show($etablissement_id)
     {
-        
     }
 
     /**
@@ -41,7 +40,6 @@ class EtablissementService
     public function store(Request $request)
     {
 
-        
     }
     /**
      * add or update location.
@@ -63,8 +61,7 @@ class EtablissementService
                 'rue' => 'required|string',
                 'description' => 'required|string',
                 'etablissement_id' => 'required|integer',
-
-
+              
             ]);
             $etablissementExist = Etablissement::where('id', $validatedData['etablissement_id'])
                 ->get();
@@ -105,7 +102,8 @@ class EtablissementService
             $localisation->save();
 
 
-            return  $this->getEtablissement($etablissement->id);
+            return
+                $etablissement;
         } catch (ValidationException $exception) {
             return response()->json([
                 'errors' => $exception->errors(),
@@ -173,7 +171,7 @@ class EtablissementService
             }
 
 
-            return  $this->getEtablissement($validatedData['etablissement_id'],);
+            // return  $this->getEtablissement($validatedData['etablissement_id'],);
         } catch (ValidationException $exception) {
             return response()->json([
                 'errors' => $exception->errors(),
@@ -211,7 +209,7 @@ class EtablissementService
             $SpecialiteEtablissement->delete();
 
 
-            return  $this->getEtablissement($validatedData['etablissement_id'],);
+            // return  $this->getEtablissement($validatedData['etablissement_id'],);
         } catch (ValidationException $exception) {
             return response()->json([
                 'errors' => $exception->errors(),

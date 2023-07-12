@@ -39,7 +39,9 @@ class Etablissement extends Model
         "phone2",
         'email',
         "description",
-        "localisation_id"
+        "localisation_id",
+        "status",
+        "user_id"
 
     ];
 

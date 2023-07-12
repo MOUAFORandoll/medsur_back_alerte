@@ -42,13 +42,7 @@ class AlerteController extends Controller
         $alerte = Alerte::where('user_id', $user_id)->latest()->first();
         return $this->successResponse($alerte != null ? ['sexe' => $alerte->sexe_user, 'poids' => $alerte->poids_user, 'taille' => $alerte->taille_user, 'birthDay' => $alerte->birthday_user] : null);
     }
-    public function ifEtablissementSpeciality(Request $request)
-    {
-
-
-        $data = $this->alerteService->ifEtablissementSpeciality(1, 46);
-        return $this->successResponse($data);
-    }
+   
     /**
      * Show the form for creating a new resource or update if existing .
      *

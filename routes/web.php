@@ -30,6 +30,15 @@ $router->group(['prefix' => 'api/v1', 'namespace' => 'v1'], function () use ($ro
         $router->patch('/{alerte}/subscribe', ['uses' => 'AlerteController@subScribeAlerte']);
     });
     /**
+     * CRUDS etablissements
+     */
+    $router->group(['prefix' => 'etablissements'], function () use ($router) {
+        $router->get('/', ['uses' => 'EtablissementController@index']);
+        $router->post('/', ['uses' => 'EtablissementController@store']);
+        $router->get('/{etablissement_id}', ['uses' => 'EtablissementController@show']);
+        $router->patch('/{etablissement_id}/state', ['uses' => 'EtablissementController@subScribeAlerte']);
+    });
+    /**
      * list specialite
      */
     $router->get('/specialities', ['uses' => 'SpecialityController@index']);

@@ -12,7 +12,7 @@ class ReglementationAutorisation extends Model
 
 
     protected $fillable = [
-     
+
         "authorisation_service",
         "etablissement_id"
     ];

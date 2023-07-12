@@ -23,6 +23,10 @@ class CreateEtablissementsTable extends Migration
             $table->string('phone2')->nullable();
             $table->string('email');
             $table->longText('siteweb');
+            $table->bigInteger('user_id');
+            $table->boolean('status')->default(false);
+
+
             $table->longText('description');
             $table->unsignedBigInteger('localisation_id')->nullable();
             $table->foreign('localisation_id')
@@ -45,7 +49,7 @@ class CreateEtablissementsTable extends Migration
             $table->foreign('specialite_id')->references('id')->on('specialites')->onDelete('cascade');
             $table->foreign('etablissement_id')->references('id')->on('etablissements')->onDelete('cascade');
         });
-      
+
         // Schema::create('specialite_etablissement', function (Blueprint $table) {
         //     $table->id();
         //     $table->unsignedBigInteger('specialite_id')->nullable();

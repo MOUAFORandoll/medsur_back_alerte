@@ -11,7 +11,7 @@ class Agenda extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = ["libelle","libelle_en"];
-
+    
 
 
     public function AgendaEtablissement()

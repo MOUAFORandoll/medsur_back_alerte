@@ -114,7 +114,7 @@ class  EtablissementSeeder extends Seeder
                 "latitude" =>   4.0836531316119045,
             ],
             [
-
+                
                 "boite_postale" => "Aucune",
                 "pays" => "Cameroun",
                 "ville" => "Douala",
@@ -135,11 +135,11 @@ class  EtablissementSeeder extends Seeder
                 "phone2" => "699109851",
                 "email" => "test@test.com",
                 "siteweb" => "www.test.com",
-                "localisation_id" => 1,
+                "user_id" => 2, "localisation_id" => 1,
 
                 "description" => "Sint consequat dolor labore laborum velit mollit aliqua reprehenderit. Non esse duis adipisicing officia pariatur. Labore exercitation consequat qui culpa. Ullamco quis minim aliquip occaecat ex. Reprehenderit in id enim consequat magna non excepteur nulla. Adipisicing tempor sunt exercitation dolore laborum minim aliqua est.",
 
-            
+
             ],
             [
                 "name" => "FONDATION MEDICALE JOSEPH PERRAIN",
@@ -149,7 +149,7 @@ class  EtablissementSeeder extends Seeder
                 "phone2" => "699109851",
                 "email" => "test@test.com",
                 "siteweb" => "www.test.com",
-                "localisation_id" => 2,
+                "user_id" => 2, "localisation_id" => 2,
 
                 "description" => "Sint consequat dolor labore laborum velit mollit aliqua reprehenderit. Non esse duis adipisicing officia pariatur. Labore exercitation consequat qui culpa. Ullamco quis minim aliquip occaecat ex. Reprehenderit in id enim consequat magna non excepteur nulla. Adipisicing tempor sunt exercitation dolore laborum minim aliqua est.",
 
@@ -163,7 +163,7 @@ class  EtablissementSeeder extends Seeder
                 "phone2" => "242606777",
                 "email" => "test@test.com",
                 "siteweb" => "www.test.com",
-                "localisation_id" => 3,
+                "user_id" => 2, "localisation_id" => 3,
 
                 "description" => "Sint consequat dolor labore laborum velit mollit aliqua reprehenderit. Non esse duis adipisicing officia pariatur. Labore exercitation consequat qui culpa. Ullamco quis minim aliquip occaecat ex. Reprehenderit in id enim consequat magna non excepteur nulla. Adipisicing tempor sunt exercitation dolore laborum minim aliqua est.",
 
@@ -177,7 +177,7 @@ class  EtablissementSeeder extends Seeder
                 "phone2" => "699109851",
                 "email" => "test@test.com",
                 "siteweb" => "www.test.com",
-                "localisation_id" => 4,
+                "user_id" => 2, "localisation_id" => 4,
 
                 "description" => "Sint consequat dolor labore laborum velit mollit aliqua reprehenderit. Non esse duis adipisicing officia pariatur. Labore exercitation consequat qui culpa. Ullamco quis minim aliquip occaecat ex. Reprehenderit in id enim consequat magna non excepteur nulla. Adipisicing tempor sunt exercitation dolore laborum minim aliqua est.",
 
@@ -190,7 +190,7 @@ class  EtablissementSeeder extends Seeder
                 "phone2" => "699888953",
                 "email" => "test@test.com",
                 "siteweb" => "www.test.com",
-                "localisation_id" => 5,
+                "user_id" => 2, "localisation_id" => 5,
 
                 "description" => "Sint consequat dolor labore laborum velit mollit aliqua reprehenderit. Non esse duis adipisicing officia pariatur. Labore exercitation consequat qui culpa. Ullamco quis minim aliquip occaecat ex. Reprehenderit in id enim consequat magna non excepteur nulla. Adipisicing tempor sunt exercitation dolore laborum minim aliqua est.",
 
@@ -204,7 +204,7 @@ class  EtablissementSeeder extends Seeder
                 "phone2" => "2 33 43 36 50",
                 "email" => "clinicoliveraie@yahoo.fr",
                 "siteweb" => "www.test.com",
-                "localisation_id" => 6,
+                "user_id" => 2, "localisation_id" => 6,
 
                 "description" => "Sint consequat dolor labore laborum velit mollit aliqua reprehenderit. Non esse duis adipisicing officia pariatur. Labore exercitation consequat qui culpa. Ullamco quis minim aliquip occaecat ex. Reprehenderit in id enim consequat magna non excepteur nulla. Adipisicing tempor sunt exercitation dolore laborum minim aliqua est.",
 
@@ -217,7 +217,7 @@ class  EtablissementSeeder extends Seeder
                 "phone2" => "233 12 10 69",
                 "email" => "clinicoliveraie@yahoo.fr",
                 "siteweb" => "www.test.com",
-                "localisation_id" => 7,
+                "user_id" => 2, "localisation_id" => 7,
 
                 "description" => "Sint consequat dolor labore laborum velit mollit aliqua reprehenderit. Non esse duis adipisicing officia pariatur. Labore exercitation consequat qui culpa. Ullamco quis minim aliquip occaecat ex. Reprehenderit in id enim consequat magna non excepteur nulla. Adipisicing tempor sunt exercitation dolore laborum minim aliqua est.",
 
@@ -229,7 +229,7 @@ class  EtablissementSeeder extends Seeder
                 "phone2" => "699 92 88 11",
                 "email" => "adlucem@yahoo.fr",
                 "siteweb" => "www.test.com",
-                "localisation_id" => 8,
+                "user_id" => 2, "localisation_id" => 8,
                 "description" => "Sint consequat dolor labore laborum velit mollit aliqua reprehenderit. Non esse duis adipisicing officia pariatur. Labore exercitation consequat qui culpa. Ullamco quis minim aliquip occaecat ex. Reprehenderit in id enim consequat magna non excepteur nulla. Adipisicing tempor sunt exercitation dolore laborum minim aliqua est.",
 
             ], [
@@ -240,7 +240,7 @@ class  EtablissementSeeder extends Seeder
                 "phone2" => "233473725",
                 "email" => "adlucem@yahoo.fr",
                 "siteweb" => "www.test.com",
-                "localisation_id" => 9,
+                "user_id" => 2, "localisation_id" => 9,
                 "description" => "Sint consequat dolor labore laborum velit mollit aliqua reprehenderit. Non esse duis adipisicing officia pariatur. Labore exercitation consequat qui culpa. Ullamco quis minim aliquip occaecat ex. Reprehenderit in id enim consequat magna non excepteur nulla. Adipisicing tempor sunt exercitation dolore laborum minim aliqua est.",
 
             ], [
@@ -251,7 +251,7 @@ class  EtablissementSeeder extends Seeder
                 "phone2" => "699 86 63 72",
                 "email" => "adlucem@yahoo.fr",
                 "siteweb" => "www.test.com",
-                "localisation_id" => 10,
+                "user_id" => 2, "localisation_id" => 10,
                 "description" => "Sint consequat dolor labore laborum velit mollit aliqua reprehenderit. Non esse duis adipisicing officia pariatur. Labore exercitation consequat qui culpa. Ullamco quis minim aliquip occaecat ex. Reprehenderit in id enim consequat magna non excepteur nulla. Adipisicing tempor sunt exercitation dolore laborum minim aliqua est.",
 
             ],

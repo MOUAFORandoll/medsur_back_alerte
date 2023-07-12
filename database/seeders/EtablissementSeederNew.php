@@ -104,7 +104,7 @@ class  EtablissementSeederNew extends Seeder
                 "phone2" => "",
                 "email" => "",
                 "siteweb" => "",
-                "localisation_id" => 0,
+                "localisation_id" => 0,  "user_id" => 2,
                 "description" => ""
             ],
             [
@@ -115,7 +115,7 @@ class  EtablissementSeederNew extends Seeder
                 "phone2" => "",
                 "email" => "",
                 "siteweb" => "",
-                "localisation_id" => 0,
+                "localisation_id" => 0,  "user_id" => 2,
                 "description" => ""
             ],
             [
@@ -126,7 +126,7 @@ class  EtablissementSeederNew extends Seeder
                 "phone2" => "",
                 "email" => "",
                 "siteweb" => "",
-                "localisation_id" => 0,
+                "localisation_id" => 0,  "user_id" => 2,
                 "description" => ""
             ],
             [
@@ -137,7 +137,7 @@ class  EtablissementSeederNew extends Seeder
                 "phone2" => "",
                 "email" => "",
                 "siteweb" => "",
-                "localisation_id" => 0,
+                "localisation_id" => 0,  "user_id" => 2,
                 "description" => ""
             ],
             [
@@ -148,7 +148,8 @@ class  EtablissementSeederNew extends Seeder
                 "phone2" => "",
                 "email" => "",
                 "siteweb" => "",
-                "localisation_id" => 0,
+                "localisation_id" => 0,  "user_id" => 2,
+              
                 "description" => ""
             ],
             // Ajoutez les autres objets ici
@@ -167,7 +168,3 @@ class  EtablissementSeederNew extends Seeder
         // $etablissements = Etablissement::factory()->count(50)->create();
     }
 }
-
-
-
-
