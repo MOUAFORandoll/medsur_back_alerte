@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\v1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Specialite;
 use App\Services\EtablissementService;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Support\Str;
@@ -25,7 +26,11 @@ class EtablissementController extends Controller
     public function index(Request $request)
     {
 
-        $etablissements = $this->etablissementService->index($request);
+        $size = $request->size ?? 25;
+        $etablissements = Etablissement::with(['localisation', 'categories', /* 'specialites',  */ 'Notation', 'agendas'])
+            ->latest()
+            ->paginate($size);
+
 
         return $this->successResponse($etablissements);
     }
@@ -91,11 +96,9 @@ class EtablissementController extends Controller
         return $this->successResponse($etablissement);
     }
 
-    public function subScribeAlerte(Request $request, $etablissement_id)
+    public function stateEtablissement($etablissement_id)
     {
-        // $this->validate($request, [
-        //     'etablissement_id' => 'required|integer',
-        // ]);
+
         $etablissement = Etablissement::find($etablissement_id);
 
         $etablissement->status
@@ -103,29 +106,173 @@ class EtablissementController extends Controller
         $etablissement->save();
         return $this->successResponse($etablissement);
     }
-    public function storeSpeciality(Request $request)
-    {
-        $etablissement = $this->etablissementService->storeSpeciality($request);
 
-        return $this->successResponse($etablissement);
+    public function updateSpeciality(Request $request, $etablissement_id)
+    {
+
+        $this->validate(
+            $request,
+            [
+                'speciality' => 'required|array',
+
+
+            ]
+        );
+
+        $etablissement = Etablissement::where('id', $etablissement_id)
+            ->get();
+
+        if (
+            count($etablissement) == 0 ||
+            count($request['speciality']) == 0
+        ) {
+            return response()->json(['status' => 'Renseigner les informations correctes']);
+        } else {
+            foreach ($request['speciality'] as $specialite) {
+                $specialiteExist = Specialite::where('id', $specialite)
+                    ->get();
+                if (
+                    count($specialiteExist) != 0
+                ) {
+
+
+                    $SpecialiteEtablissement = SpecialiteEtablissement::where('etablissement_id', $request['etablissement_id'])
+                        ->where('specialite_id', $specialite)
+                        ->get();
+
+                    if (
+                        count($SpecialiteEtablissement) == 0
+                    ) {
+
+                        $newLSE =   SpecialiteEtablissement::create([
+                            'etablissement_id' =>
+                            $etablissement_id,
+                            'specialite_id' =>  $specialite,
+
+                        ]);
+
+
+                        $newLSE->save();
+                    }
+                }
+            }
+        }
+        return $this->show($etablissement_id);
     }
-    public function deletteEtablissmentSpeciality(Request $request)
+    public function removeEtablissmentSpeciality(Request $request, $etablissement_id)
     {
-        $etablissement = $this->etablissementService->deletteEtablissmentSpeciality($request);
 
-        return $this->successResponse($etablissement);
+        $this->validate(
+            $request,
+            [
+
+                'speciality' => 'required',
+
+
+            ]
+        );
+        $speciality = $request['speciality'];
+        foreach ($speciality as  $valeur) {
+
+            $SpecialiteEtablissement = SpecialiteEtablissement::where('etablissement_id',  $etablissement_id)
+                ->where('specialite_id',  $valeur)
+                ->first();
+
+
+
+            $SpecialiteEtablissement->delete();
+        }
+
+
+
+
+
+        
+        return $this->show($request['etablissement_id']);
     }
 
     public function storeLocation(Request $request)
     {
-        $etablissement = $this->etablissementService->storeLocation($request);
 
-        return $this->successResponse($etablissement);
+
+        $this->validate(
+            $request,
+            [
+
+                'longitude' => 'required|numeric',
+                'latitude' => 'required|numeric',
+                'boite_postale' => 'required|string',
+                'pays' => 'required|string',
+                'ville' => 'required|string',
+                'rue' => 'required|string',
+                'description' => 'required|string',
+                'etablissement_id' => 'required|integer',
+
+            ]
+        );
+        $etablissement = Etablissement::find($request['etablissement_id']);
+
+        if (!$etablissement) {
+            return response()->json(['status' => false]);
+        }
+
+        $localisation = $etablissement->localisation;
+
+        if ($localisation && $localisation->id != 0 && $localisation->id != null) {
+            $localisation->update([
+                'longitude' => $request['longitude'],
+                'latitude' => $request['latitude'],
+                'boite_postale' => $request['boite_postale'],
+                'pays' => $request['pays'],
+                'ville' => $request['ville'],
+                'rue' => $request['rue'],
+                'description' => $request['description'],
+            ]);
+        } else {
+            $localisation = Localisation::create([
+                'longitude' => $request['longitude'],
+                'latitude' => $request['latitude'],
+                'boite_postale' => $request['boite_postale'],
+                'pays' => $request['pays'],
+                'ville' => $request['ville'],
+                'rue' => $request['rue'],
+                'description' => $request['description'],
+            ]);
+
+            $etablissement->localisation_id = $localisation->id;
+        }
+
+        $etablissement->save();
+
+
+        $etablissement->save();
+        $localisation->save();
+
+
+
+        return $this->show($etablissement->id);
     }
     public function show($etablissement_id)
     {
-        $etablissement = Etablissement::find($etablissement_id)/* ->load(['localisation', 'specialites', 'Notation']) */;
+        $etablissement = Etablissement::find($etablissement_id)->load(['localisation', 'categories',   'specialites',   'Notation', 'agendas']) ;
 
+        // $etablissement = Etablissement::with(['localisation', 'categories', 'specialites', 'Notation', 'agendas'])
+        // ->whereHas('localisation', function ($query) {
+        //     $query->whereNull('localisation.deleted_at');
+        // })
+        //     ->whereHas('categories', function ($query) {
+        //         $query->whereNull('categories.deleted_at');
+        //     })
+        //     ->whereHas('specialites', function ($query) {
+        //         $query->whereNull('specialites.deleted_at');
+        //     })
+        //     ->whereHas('Notation', function ($query) {
+        //         $query->whereNull('notation.deleted_at');
+        //     })
+        //     ->whereHas('agendas', function ($query) {
+        //         $query->whereNull('agendas.deleted_at');
+        //     })
+        //     ->find($etablissement_id);
         return $this->successResponse($etablissement);
     }
 }

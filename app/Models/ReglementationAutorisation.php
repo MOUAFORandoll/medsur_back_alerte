@@ -16,7 +16,7 @@ class ReglementationAutorisation extends Model
         "authorisation_service",
         "etablissement_id"
     ];
-
+    
     public function etablissement()
     {
         return $this->belongsTo(Etablissement::class, 'etablissement_id', 'id');

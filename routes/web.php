@@ -29,6 +29,8 @@ $router->group(['prefix' => 'api/v1', 'namespace' => 'v1'], function () use ($ro
         $router->get('/info/{user_id}', ['uses' => 'AlerteController@historyInfoUserAlert']);
         $router->patch('/{alerte}/subscribe', ['uses' => 'AlerteController@subScribeAlerte']);
     });
+
+    
     /**
      * CRUDS etablissements
      */
@@ -36,7 +38,12 @@ $router->group(['prefix' => 'api/v1', 'namespace' => 'v1'], function () use ($ro
         $router->get('/', ['uses' => 'EtablissementController@index']);
         $router->post('/', ['uses' => 'EtablissementController@store']);
         $router->get('/{etablissement_id}', ['uses' => 'EtablissementController@show']);
-        $router->patch('/{etablissement_id}/state', ['uses' => 'EtablissementController@subScribeAlerte']);
+        $router->patch('/{etablissement_id}/state', ['uses' => 'EtablissementController@stateEtablissement']);
+        $router->patch(
+            '/{etablissement_id}/speciality/remove',
+            ['uses' => 'EtablissementController@removeEtablissmentSpeciality']
+        );
+        $router->patch('/{etablissement_id}/speciality/add', ['uses' => 'EtablissementController@updateSpeciality']);
     });
     /**
      * list specialite

@@ -24,23 +24,13 @@ class EtablissementService
     public function index(Request $request)
     {
         $size = $request->size ?? 25;
-        $etablissements = Etablissement::latest()->paginate($size);
+        $etablissements = Etablissement::with(['localisation', 'categories', /* 'specialites',  */ 'Notation', 'agendas'])
+            ->latest()
+            ->paginate($size);
+
         return $etablissements;
     }
 
-    public function show($etablissement_id)
-    {
-    }
-
-    /**
-     * Show the form for creating a new resource .
-     *
-     * @return        \Illuminate\Http\JsonResponse
-     */
-    public function store(Request $request)
-    {
-
-    }
     /**
      * add or update location.
      *
@@ -61,7 +51,7 @@ class EtablissementService
                 'rue' => 'required|string',
                 'description' => 'required|string',
                 'etablissement_id' => 'required|integer',
-              
+
             ]);
             $etablissementExist = Etablissement::where('id', $validatedData['etablissement_id'])
                 ->get();
@@ -190,7 +180,7 @@ class EtablissementService
         try {
 
 
-
+        
             $validatedData = $request->validate([
                 'etablissement_id' => 'required|integer',
                 'specialite_id' => 'required|integer',
