@@ -1,0 +1,20 @@
+[2023-08-03 07:23:55] production.ERROR: There are no commands defined in the "databe" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"databe\" namespace. at C:\\Dev\\Medsur\\back-alerte\\vendor\\symfony\\console\\Application.php:650)
+[stacktrace]
+#0 C:\\Dev\\Medsur\\back-alerte\\vendor\\symfony\\console\\Application.php(701): Symfony\\Component\\Console\\Application->findNamespace('databe')
+#1 C:\\Dev\\Medsur\\back-alerte\\vendor\\symfony\\console\\Application.php(259): Symfony\\Component\\Console\\Application->find('databe:create')
+#2 C:\\Dev\\Medsur\\back-alerte\\vendor\\symfony\\console\\Application.php(171): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 C:\\Dev\\Medsur\\back-alerte\\vendor\\illuminate\\console\\Application.php(94): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 C:\\Dev\\Medsur\\back-alerte\\vendor\\laravel\\lumen-framework\\src\\Console\\Kernel.php(116): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 C:\\Dev\\Medsur\\back-alerte\\artisan(35): Laravel\\Lumen\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#6 {main}
+"} 
+[2023-08-03 07:24:12] production.ERROR: There are no commands defined in the "databasee" namespace. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\NamespaceNotFoundException(code: 0): There are no commands defined in the \"databasee\" namespace. at C:\\Dev\\Medsur\\back-alerte\\vendor\\symfony\\console\\Application.php:650)
+[stacktrace]
+#0 C:\\Dev\\Medsur\\back-alerte\\vendor\\symfony\\console\\Application.php(701): Symfony\\Component\\Console\\Application->findNamespace('databasee')
+#1 C:\\Dev\\Medsur\\back-alerte\\vendor\\symfony\\console\\Application.php(259): Symfony\\Component\\Console\\Application->find('databasee:creat...')
+#2 C:\\Dev\\Medsur\\back-alerte\\vendor\\symfony\\console\\Application.php(171): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 C:\\Dev\\Medsur\\back-alerte\\vendor\\illuminate\\console\\Application.php(94): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 C:\\Dev\\Medsur\\back-alerte\\vendor\\laravel\\lumen-framework\\src\\Console\\Kernel.php(116): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 C:\\Dev\\Medsur\\back-alerte\\artisan(35): Laravel\\Lumen\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#6 {main}
+"} 
