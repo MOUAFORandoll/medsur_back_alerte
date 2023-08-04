@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\v1;
 
 use App\Http\Controllers\Controller;
+use App\Models\AgendaEtablissement;
+use App\Models\Alerte;
 use App\Models\Specialite;
 use App\Services\EtablissementService;
 use Dotenv\Exception\ValidationException;
@@ -47,7 +49,7 @@ class EtablissementController extends Controller
                 'description' => 'required|string',
                 'longitude' => 'required|numeric',
                 'latitude' => 'required|numeric',
-                'pays' => 'required|string',
+
                 'ville' => 'required|string',
                 'speciality' => 'required',
                 'user_id' => 'required',
@@ -59,7 +61,7 @@ class EtablissementController extends Controller
             $request['longitude'],
             'latitude' =>  $request['latitude'],
             'boite_postale' =>   $request['boite_postale'] ?? '',
-            'pays' =>  $request['pays'],
+            'pays' =>  $request['pays'] ?? 'Cameroun',
             'ville' =>  $request['ville'],
             'rue' =>  $request['rue'] ?? '',
             'description' => $request['description0'] ?? '',
@@ -88,9 +90,28 @@ class EtablissementController extends Controller
             $specialite = SpecialiteEtablissement::create([
                 'specialite_id' => $valeur,
 
-                'etablissement_id' => $localisation->id
+                'etablissement_id' => $etablissement->id
             ]);
             $specialite->save();
+        }
+        $agenda = $request['agenda'];
+
+        foreach ($agenda as  $valeur) {
+
+
+            $agenda =    AgendaEtablissement::create([
+                'debut' =>
+                $valeur[1],
+                'fin' =>
+                $valeur[2],
+                'agenda_id' => $valeur[3],
+                'etablissement_id' => $etablissement->id
+
+
+            ]);
+
+
+            $agenda->save();
         }
 
         return $this->successResponse($etablissement);
@@ -113,82 +134,88 @@ class EtablissementController extends Controller
         $this->validate(
             $request,
             [
-                'speciality' => 'required|array',
+                'specialite_id' => 'required',
 
 
             ]
         );
 
-        $etablissement = Etablissement::where('id', $etablissement_id)
-            ->get();
+        $etablissement = Etablissement::find($etablissement_id);
 
-        if (
-            count($etablissement) == 0 ||
-            count($request['speciality']) == 0
-        ) {
+        if (!$etablissement || empty($request['specialite_id'])) {
             return response()->json(['status' => 'Renseigner les informations correctes']);
-        } else {
-            foreach ($request['speciality'] as $specialite) {
-                $specialiteExist = Specialite::where('id', $specialite)
-                    ->get();
-                if (
-                    count($specialiteExist) != 0
-                ) {
-
-
-                    $SpecialiteEtablissement = SpecialiteEtablissement::where('etablissement_id', $request['etablissement_id'])
-                        ->where('specialite_id', $specialite)
-                        ->get();
-
-                    if (
-                        count($SpecialiteEtablissement) == 0
-                    ) {
-
-                        $newLSE =   SpecialiteEtablissement::create([
-                            'etablissement_id' =>
-                            $etablissement_id,
-                            'specialite_id' =>  $specialite,
-
-                        ]);
-
-
-                        $newLSE->save();
-                    }
-                }
-            }
         }
+
+        // foreach ($request['specialite_id'] as $specialite) {
+        $specialiteExist = Specialite::find($request['specialite_id']);
+
+        if ($specialiteExist) {
+            $specialiteEtablissementExist = SpecialiteEtablissement::where('etablissement_id', $etablissement_id)
+                ->where('specialite_id', $request['specialite_id'])
+                ->exists();
+
+            if (!$specialiteEtablissementExist) {
+                SpecialiteEtablissement::create([
+                    'etablissement_id' => $etablissement_id,
+                    'specialite_id' => $request['specialite_id'],
+                ]);
+            }
+            // }
+        }
+
         return $this->show($etablissement_id);
     }
     public function removeEtablissmentSpeciality(Request $request, $etablissement_id)
     {
 
+        // $this->validate(
+        //     $request,
+        //     [
+
+        //         'specialite_id' => 'required',
+
+
+        //     ]
+        // );
+        // $specialite_id = $request['specialite_id'];
+        // $speciality = Specialite::find($specialite_id);
+
+
+        // foreach ($speciality as  $valeur) {
+
+        //     $SpecialiteEtablissement = SpecialiteEtablissement::where('etablissement_id',  $etablissement_id)
+        //         ->where('specialite_id',  $valeur)
+        //         ->first();
+
+
+
+        //     $SpecialiteEtablissement->delete();
+        // }
+
+
         $this->validate(
             $request,
             [
-
-                'speciality' => 'required',
-
-
+                'specialite_id' => 'required',
             ]
         );
-        $speciality = $request['speciality'];
-        foreach ($speciality as  $valeur) {
 
-            $SpecialiteEtablissement = SpecialiteEtablissement::where('etablissement_id',  $etablissement_id)
-                ->where('specialite_id',  $valeur)
-                ->first();
+        $specialite_id = $request['specialite_id'];
+        $SpecialiteEtablissement = SpecialiteEtablissement::where('etablissement_id', $etablissement_id)
+            ->where('specialite_id', $specialite_id)
+            ->first();
 
-
-
+        if ($SpecialiteEtablissement) {
             $SpecialiteEtablissement->delete();
+            // $etablissement = Etablissement::find(
+            //     $etablissement_id
+            // );
         }
 
 
 
 
-
-        
-        return $this->show($request['etablissement_id']);
+        return  $this->show($request['etablissement_id']);
     }
 
     public function storeLocation(Request $request)
@@ -254,7 +281,7 @@ class EtablissementController extends Controller
     }
     public function show($etablissement_id)
     {
-        $etablissement = Etablissement::find($etablissement_id)->load(['localisation', 'categories',   'specialites',   'Notation', 'agendas']) ;
+        $etablissement = Etablissement::find($etablissement_id)->load(['localisation', 'categories',   'specialites',   'Notation', 'agendas']);
 
         // $etablissement = Etablissement::with(['localisation', 'categories', 'specialites', 'Notation', 'agendas'])
         // ->whereHas('localisation', function ($query) {
@@ -273,6 +300,28 @@ class EtablissementController extends Controller
         //         $query->whereNull('agendas.deleted_at');
         //     })
         //     ->find($etablissement_id);
+        $etablissement->nmbre_alerte = $this->etablissementService->nombrealerteEtablissement($etablissement->id);
+
         return $this->successResponse($etablissement);
+    }
+    public function showEtabliseementUser($user_id)
+    {
+        $etablissement = Etablissement::where('user_id', $user_id)
+            ->with(['localisation', 'categories',   'specialites',   'Notation', 'agendas'])->get()->last();
+        $etablissement->nmbre_alerte = $this->etablissementService->nombrealerteEtablissement($etablissement->id);
+
+        return $this->successResponse($etablissement);
+    }
+
+    public function showAlertEtablissement(Request $request)
+    {
+        $size = $request->size ?? 25;
+        $etablissement_id = $request->etablissement_id;
+        $alertes = Alerte::query();
+        if ($etablissement_id != "") {
+            $alertes = $alertes->where('etablissement_id', $etablissement_id)->with(['etablissement'])->whereNotNull('etablissement_id');
+        }
+        $alertes = $alertes->with(['etablissement.localisation', 'specialites'])->latest()->paginate($size);
+        return $this->successResponse($alertes);
     }
 }

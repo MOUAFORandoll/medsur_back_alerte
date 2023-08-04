@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Agenda;
+use App\Models\Alerte;
 use App\Models\Etablissement;
 use App\Models\SpecialiteEtablissement;
 use App\Models\Localisation;
@@ -180,7 +181,7 @@ class EtablissementService
         try {
 
 
-        
+
             $validatedData = $request->validate([
                 'etablissement_id' => 'required|integer',
                 'specialite_id' => 'required|integer',
@@ -205,5 +206,16 @@ class EtablissementService
                 'errors' => $exception->errors(),
             ], 422);
         }
+    }
+
+
+    public function nombrealerteEtablissement(int  $etablissement_id)
+    {
+        $alertes = Alerte::where(
+            "etablissement_id",
+            $etablissement_id
+        )->get();
+
+        return  count($alertes);
     }
 }

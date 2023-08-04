@@ -9,9 +9,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Specialite extends Model
 {
     use HasFactory, SoftDeletes;
-    
+
     protected $fillable = [
-        "libelle"
+        "libelle",
+        "libelle_en"
     ];
     public function SpecialiteEtablissement()
     {
