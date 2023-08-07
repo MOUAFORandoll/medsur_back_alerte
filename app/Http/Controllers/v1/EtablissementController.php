@@ -308,9 +308,14 @@ class EtablissementController extends Controller
     {
         $etablissement = Etablissement::where('user_id', $user_id)
             ->with(['localisation', 'categories',   'specialites',   'Notation', 'agendas'])->get()->last();
-        $etablissement->nmbre_alerte = $this->etablissementService->nombrealerteEtablissement($etablissement->id);
+        if ($etablissement) {
 
-        return $this->successResponse($etablissement);
+
+            $etablissement->nmbre_alerte = $this->etablissementService->nombrealerteEtablissement($etablissement->id);
+            return $this->successResponse($etablissement);
+        } else {
+            $this->successResponse([]);
+        }
     }
 
     public function showAlertEtablissement(Request $request)
