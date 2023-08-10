@@ -98,7 +98,7 @@ class Etablissement extends Model
     public function agendas()
     {
         return $this->belongsToMany(Agenda::class, AgendaEtablissement::class)
-            ->withPivot(["fin",  "debut"]);
+            ->withPivot(["fin",  "debut", 'id']);
     }
     public function CategorieEtablissement()
     {

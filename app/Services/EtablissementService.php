@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Models\Agenda;
 use App\Models\Alerte;
 use App\Models\Etablissement;
+use App\Models\Garanti;
+use App\Models\ReglementationAutorisation;
 use App\Models\SpecialiteEtablissement;
 use App\Models\Localisation;
 use Illuminate\Http\Request;
@@ -217,5 +219,25 @@ class EtablissementService
         )->get();
 
         return  count($alertes);
+    }
+
+    public function haveGarantiEtablissement(int  $etablissement_id)
+    {
+        $exist = Garanti::where(
+            "etablissement_id",
+            $etablissement_id
+        )->get();
+
+        return  count($exist) == 0 ? false :  true /*  $exist->last() */;
+    }
+
+    public function haveAutorisationService(int  $etablissement_id)
+    {
+        $exist = ReglementationAutorisation::where(
+            "etablissement_id",
+            $etablissement_id
+        )->get();
+
+        return count($exist) == 0 ? false : ($exist->last()->authorisation_service == true ? true  /* $exist->last() */ : false);
     }
 }

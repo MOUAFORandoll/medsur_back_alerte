@@ -45,7 +45,9 @@ $router->group(['prefix' => 'api/v1', 'namespace' => 'v1'], function () use ($ro
             '/{etablissement_id}/speciality/remove',
             ['uses' => 'EtablissementController@removeEtablissmentSpeciality']
         );
+        $router->patch('/{etablissement_id}/update', ['uses' => 'EtablissementController@updateEtablissement']);
         $router->patch('/{etablissement_id}/speciality/add', ['uses' => 'EtablissementController@updateSpeciality']);
+        $router->patch('/{agenda_id}/agenda/update', ['uses' => 'EtablissementController@updateAgenda']);
     });
     /**
      * list specialite

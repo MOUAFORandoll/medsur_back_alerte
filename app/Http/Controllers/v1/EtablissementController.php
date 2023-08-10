@@ -306,13 +306,21 @@ class EtablissementController extends Controller
     }
     public function showEtabliseementUser($user_id)
     {
-        $etablissement = Etablissement::where('user_id', $user_id)
-            ->with(['localisation', 'categories',   'specialites',   'Notation', 'agendas'])->get()->last();
-        if ($etablissement) {
+        $result         = [];
+        $etablissements = Etablissement::where('user_id', $user_id)
+            ->with(['localisation', 'categories',   'specialites',   'Notation', 'agendas',])->get();
+        if ($etablissements) {
+            foreach ($etablissements as $etablissement) {
+                $etablissement->nmbre_alerte = $this->etablissementService->nombrealerteEtablissement($etablissement->id);
+                $etablissement->garanti =
+                    $this->etablissementService->haveGarantiEtablissement($etablissement->id);
+                $etablissement->autorisation
+                    =  $this->etablissementService->haveAutorisationService($etablissement->id);
+                $etablissement->nmbre_alerte = $this->etablissementService->nombrealerteEtablissement($etablissement->id);
+                $result[] = $etablissement;
+            }
 
-
-            $etablissement->nmbre_alerte = $this->etablissementService->nombrealerteEtablissement($etablissement->id);
-            return $this->successResponse($etablissement);
+            return $this->successResponse($result);
         } else {
             $this->successResponse([]);
         }
@@ -328,5 +336,75 @@ class EtablissementController extends Controller
         }
         $alertes = $alertes->with(['etablissement.localisation', 'specialites'])->latest()->paginate($size);
         return $this->successResponse($alertes);
+    }
+
+    public function updateAgenda(Request
+    $request, $agenda_id)
+    {
+
+        // $this->validate(
+        //     $request,
+        //     [
+        //         'debut' => 'required',
+
+
+        //     ]
+        // );
+
+        $agenda = AgendaEtablissement::find($agenda_id);
+
+        if ($agenda) {
+
+            $agenda->debut =
+                $request->debut ??   $agenda->debut;
+
+
+            $agenda->fin
+                = $request->fin ??   $agenda->fin;
+
+            $agenda->save();
+        }
+
+
+        return $this->successResponse(['status' => 'ok']);
+    }
+    public function updateEtablissement(Request
+    $request, $etablissement_id)
+    {
+
+        // $this->validate(
+        //     $request,
+        //     [
+        //         'debut' => 'required',
+
+
+        //     ]
+        // );
+
+
+        $etablissement = Etablissement::find($etablissement_id);
+
+        if ($etablissement) {
+
+            $etablissement->name =
+                $request->name ??   $etablissement->name;
+
+
+            $etablissement->phone
+                = $request->phone ??   $etablissement->phone;
+            $etablissement->email
+                = $request->email ??   $etablissement->email;
+            $etablissement->description
+                = $request->description ??   $etablissement->description;
+            $localisation = Localisation::find($etablissement->localisation_id);
+            $localisation->boite_postale =
+                $request->boite_postale ?? $localisation->boite_postale;
+
+            $localisation->save();
+            $etablissement->save();
+        }
+
+
+        return $this->successResponse(['status' => 'ok']);
     }
 }
