@@ -40,6 +40,7 @@ $router->group(['prefix' => 'api/v1', 'namespace' => 'v1'], function () use ($ro
         $router->get('/{etablissement_id}', ['uses' => 'EtablissementController@show']);
         $router->get('/user/{user_id}', ['uses' => 'EtablissementController@showEtabliseementUser']);
         $router->get('/{etablissement_id}/alerte', ['uses' => 'EtablissementController@showAlertEtablissement']);
+        $router->get('/{etablissement_id}/mail', ['uses' => 'EtablissementController@sendActivationMailEtablissement']);
         $router->patch('/{etablissement_id}/state', ['uses' => 'EtablissementController@stateEtablissement']);
         $router->patch(
             '/{etablissement_id}/speciality/remove',

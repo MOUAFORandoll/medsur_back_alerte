@@ -5,6 +5,8 @@ namespace App\Http\Controllers\v1;
 use App\Http\Controllers\Controller;
 use App\Models\AgendaEtablissement;
 use App\Models\Alerte;
+use App\Models\Garanti;
+use App\Models\ReglementationAutorisation;
 use App\Models\Specialite;
 use App\Services\EtablissementService;
 use Dotenv\Exception\ValidationException;
@@ -121,10 +123,27 @@ class EtablissementController extends Controller
     {
 
         $etablissement = Etablissement::find($etablissement_id);
+        if (!$etablissement->status) {
+            $etablissement->status
+                = true;
+            $garanti =       Garanti::create(
+                [
+                    "arcce" =>  false,
 
-        $etablissement->status
-            = !$etablissement->status;
-        $etablissement->save();
+                    "extra" => "Aucun",
+                    "etablissement_id" =>  $etablissement->id
+                ]
+            );
+            $reglementationAutorisation =   ReglementationAutorisation::create(
+                [
+                    "authorisation_service" =>   true,
+                    "etablissement_id" =>  $etablissement->id
+                ]
+            );
+            $garanti->save();
+            $reglementationAutorisation->save();
+            $etablissement->save();
+        }
         return $this->successResponse($etablissement);
     }
 
@@ -403,6 +422,22 @@ class EtablissementController extends Controller
             $localisation->save();
             $etablissement->save();
         }
+
+
+        return $this->successResponse(['status' => 'ok']);
+    }
+    public function sendActivationMailEtablissement($etablissement_id)
+    {
+
+        // $this->validate(
+        //     $request,
+        //     [
+        //         'debut' => 'required',
+
+
+        //     ]
+        // );
+
 
 
         return $this->successResponse(['status' => 'ok']);
