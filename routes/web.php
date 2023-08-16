@@ -49,6 +49,12 @@ $router->group(['prefix' => 'api/v1', 'namespace' => 'v1'], function () use ($ro
         $router->patch('/{etablissement_id}/update', ['uses' => 'EtablissementController@updateEtablissement']);
         $router->patch('/{etablissement_id}/speciality/add', ['uses' => 'EtablissementController@updateSpeciality']);
         $router->patch('/{agenda_id}/agenda/update', ['uses' => 'EtablissementController@updateAgenda']);
+
+
+
+        $router->post('/{etablissement_id}/test', ['uses' => 'EtablissementController@storeOrUpdate']);
+
+   
     });
     /**
      * list specialite

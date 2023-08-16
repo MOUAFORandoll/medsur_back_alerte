@@ -3,18 +3,24 @@
 namespace App\Http\Controllers\v1;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ActivationEmailEtablissement;
 use App\Models\AgendaEtablissement;
 use App\Models\Alerte;
+use App\Models\DemandeActivationEtablissement;
 use App\Models\Garanti;
 use App\Models\ReglementationAutorisation;
 use App\Models\Specialite;
 use App\Services\EtablissementService;
 use Dotenv\Exception\ValidationException;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\Agenda;
 use App\Models\Etablissement;
 use App\Models\SpecialiteEtablissement;
 use App\Models\Localisation;
+
+use Illuminate\Support\Facades\Mail;
+use App\Mail\EtablissementEmail;
 use Illuminate\Http\Request;
 
 class EtablissementController extends Controller
@@ -66,7 +72,7 @@ class EtablissementController extends Controller
             'pays' =>  $request['pays'] ?? 'Cameroun',
             'ville' =>  $request['ville'],
             'rue' =>  $request['rue'] ?? '',
-            'description' => $request['description0'] ?? '',
+            'description' => $request['description_localisation'] ?? '',
         ]);
         $localisation->save();
         $etablissement = Etablissement::create([
@@ -74,6 +80,7 @@ class EtablissementController extends Controller
             'name2' => $request->name2 ?? '',
             'siteweb' =>   $request['siteweb'] ?? '',
             'code' => Str::random(10) /*  $request['code'] */,
+            'codePhone' =>  $request['codePhone'],
             'phone' =>  $request['phone'],
             'phone2' =>
             $request['phone2'] ?? '',
@@ -115,9 +122,54 @@ class EtablissementController extends Controller
 
             $agenda->save();
         }
-
+        $this->sendActivationMailEtablissement($etablissement->id);
         return $this->successResponse($etablissement);
     }
+
+    public function storeImage(Request $request, $etablissement_id = 1)
+    {
+
+        $etablissement = Etablissement::find($etablissement_id);
+
+
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+
+            $path = $image->storeAs(
+                'public/etablissement/logo/'   . $etablissement->id,
+                $image->getClientOriginalName()
+            );
+
+            // $path = Storage::disk('local')->putFile(
+            //     'public/etablissement/logo/'   . $etablissement->id,
+            //     $image->getClientOriginalName(),
+            //     $image
+            // );
+            // $path = Storage::putFileAs(
+            //     'avatars',
+            //     $request->file('avatar'),
+            //     $request->user()->id
+            // );
+            $file = str_replace('public/', '', $path);
+
+
+            // Enregistrez le fichier dans la base de données
+            $file = new \App\Models\File([
+                'name' => $imageName,
+                'path' => $path,
+            ]);
+            $file->save();
+            $etablissement->logo_id = $file->id;
+        }
+
+        $etablissement->save();
+        return $this->successResponse(['ok']);
+        // Redirige ou renvoie une réponse
+    }
+
+
 
     public function stateEtablissement($etablissement_id)
     {
@@ -272,7 +324,7 @@ class EtablissementController extends Controller
                 'pays' => $request['pays'],
                 'ville' => $request['ville'],
                 'rue' => $request['rue'],
-                'description' => $request['description'],
+                'description' => $request['description_localisation'],
             ]);
         } else {
             $localisation = Localisation::create([
@@ -407,6 +459,9 @@ class EtablissementController extends Controller
 
             $etablissement->name =
                 $request->name ??   $etablissement->name;
+            $etablissement->codePhone =
+                $request->codePhone ??   $etablissement->codePhone;
+
 
 
             $etablissement->phone
@@ -429,17 +484,21 @@ class EtablissementController extends Controller
     public function sendActivationMailEtablissement($etablissement_id)
     {
 
-        // $this->validate(
-        //     $request,
-        //     [
-        //         'debut' => 'required',
+        $emailDest =
+            'recipient@example.com';
+
+        $etablissement = Etablissement::find($etablissement_id);
+        $mail = new ActivationEmailEtablissement($etablissement);
+        // Mail::send($mail);
+        Mail::to($emailDest)->send($mail);
+        $demande =    DemandeActivationEtablissement::create([
+            'etablissement_id' => $etablissement->id
 
 
-        //     ]
-        // );
+        ]);
 
 
-
+        $demande->save();
         return $this->successResponse(['status' => 'ok']);
     }
 }

@@ -1,6 +1,9 @@
 <?php
 
-require_once __DIR__.'/../vendor/autoload.php';
+use League\Flysystem\Local\LocalFilesystemAdapter;
+use League\Flysystem\UnixVisibility\PortableVisibilityConverter;
+
+require_once __DIR__ . '/../vendor/autoload.php';
 
 (new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
     dirname(__DIR__)
@@ -47,7 +50,6 @@ $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
     App\Console\Kernel::class
 );
-
 /*
 |--------------------------------------------------------------------------
 | Register Config Files
@@ -58,10 +60,51 @@ $app->singleton(
 | the default version. You may register other files below as needed.
 |
 */
+// The internal adapter
+// $adapter = new League\Flysystem\Local\LocalFilesystemAdapter(
+//     // Determine root directory
+//     __DIR__ . '/root/directory/'
+// );
+
+// // The FilesystemOperator
+// $filesystem = new League\Flysystem\Filesystem($adapter);
 
 $app->configure('app');
-$app->configure('services');
+// $app->configure('filesystems');
 
+$app->configure('mail');
+$app->configure('services');
+$app->register(App\Providers\AppServiceProvider::class);
+$app->register(Illuminate\Mail\MailServiceProvider::class);
+// $app->register(\Illuminate\Filesystem\FilesystemServiceProvider::class);
+
+// The internal adapter
+$adapter = new LocalFilesystemAdapter(
+    // Determine the root directory
+    __DIR__ . '/root/directory/',
+
+    // Customize how visibility is converted to unix permissions
+    PortableVisibilityConverter::fromArray([
+        'file' => [
+            'public' => 0744,
+            'private' => 0700,
+        ],
+        'dir' => [
+            'public' => 0755,
+            'private' => 0700,
+        ]
+    ]),
+
+    // Write flags
+    LOCK_EX,
+
+    // How to deal with links, either DISALLOW_LINKS or SKIP_LINKS
+    // Disallowing them causes exceptions when encountered
+    LocalFilesystemAdapter::DISALLOW_LINKS
+);
+
+// The FilesystemOperator
+$filesystem = new League\Flysystem\Filesystem($adapter);
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
@@ -113,7 +156,7 @@ $app->register(App\Providers\AppServiceProvider::class);
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
-    require __DIR__.'/../routes/web.php';
+    require __DIR__ . '/../routes/web.php';
 });
 
 return $app;

@@ -35,13 +35,15 @@ class Etablissement extends Model
         "name2",
         "siteweb",
         "code",
+        "codePhone",
         "phone",
         "phone2",
         'email',
         "description",
         "localisation_id",
         "status",
-        "user_id"
+        "user_id",
+        "logo_id"
 
     ];
 
@@ -94,6 +96,10 @@ class Etablissement extends Model
     public function localisation()
     {
         return $this->belongsTo(Localisation::class, 'localisation_id', 'id');
+    }
+    public function logo()
+    {
+        return $this->belongsTo(File::class, 'logo_id', 'id');
     }
     public function agendas()
     {

@@ -19,6 +19,7 @@ class CreateEtablissementsTable extends Migration
             $table->string('name');
             $table->string('name2')->nullable();
             $table->string('code');
+            $table->string('codePhone')->nullable();
             $table->string('phone');
             $table->string('phone2')->nullable();
             $table->string('email');
@@ -32,6 +33,12 @@ class CreateEtablissementsTable extends Migration
             $table->foreign('localisation_id')
                 ->references('id')
                 ->on('localisations')
+                ->onDelete('RESTRICT')
+                ->onUpdate('RESTRICT');
+            $table->unsignedBigInteger('logo_id')->nullable();
+            $table->foreign('logo_id')
+                ->references('id')
+                ->on('files')
                 ->onDelete('RESTRICT')
                 ->onUpdate('RESTRICT');
             $table->timestamps();
