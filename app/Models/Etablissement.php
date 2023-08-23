@@ -43,7 +43,10 @@ class Etablissement extends Model
         "localisation_id",
         "status",
         "user_id",
-        "logo_id"
+        "logo_id",
+        "codeCountry",
+        "numero_registre_commerce",
+        "numero_contribuable",
 
     ];
 

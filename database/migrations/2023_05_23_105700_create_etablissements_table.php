@@ -20,6 +20,7 @@ class CreateEtablissementsTable extends Migration
             $table->string('name2')->nullable();
             $table->string('code');
             $table->string('codePhone')->nullable();
+            $table->string('codeCountry')->nullable();
             $table->string('phone');
             $table->string('phone2')->nullable();
             $table->string('email');
@@ -29,6 +30,8 @@ class CreateEtablissementsTable extends Migration
 
 
             $table->longText('description');
+            $table->longText('numero_registre_commerce')->nullable();
+            $table->longText('numero_contribuable')->nullable();
             $table->unsignedBigInteger('localisation_id')->nullable();
             $table->foreign('localisation_id')
                 ->references('id')

@@ -61,6 +61,8 @@ class EtablissementController extends Controller
                 'ville' => 'required|string',
                 'speciality' => 'required',
                 'user_id' => 'required',
+                'numero_registre_commerce' => 'required',
+                'numero_contribuable' => 'required',
 
             ]
         );
@@ -81,7 +83,10 @@ class EtablissementController extends Controller
             'siteweb' =>   $request['siteweb'] ?? '',
             'code' => Str::random(10) /*  $request['code'] */,
             'codePhone' =>  $request['codePhone'],
+            'codeCountry' =>  $request['codeCountry'],
             'phone' =>  $request['phone'],
+            'numero_registre_commerce' =>  $request['numero_registre_commerce'],
+            'numero_contribuable' =>  $request['numero_contribuable'],
             'phone2' =>
             $request['phone2'] ?? '',
             'email' =>  $request['email'],
@@ -93,8 +98,10 @@ class EtablissementController extends Controller
 
         ]);
         $etablissement->save();
-        $speciality = $request['speciality'];
+
+        $speciality =  $request['speciality'];
         foreach ($speciality as  $valeur) {
+
 
             $specialite = SpecialiteEtablissement::create([
                 'specialite_id' => $valeur,
@@ -103,6 +110,7 @@ class EtablissementController extends Controller
             ]);
             $specialite->save();
         }
+
         $agenda = $request['agenda'];
 
         foreach ($agenda as  $valeur) {
@@ -122,11 +130,11 @@ class EtablissementController extends Controller
 
             $agenda->save();
         }
-        $this->sendActivationMailEtablissement($etablissement->id);
+        // $this->sendActivationMailEtablissement($etablissement->id);
         return $this->successResponse($etablissement);
     }
 
-    public function storeImage(Request $request, $etablissement_id = 1)
+    public function storeImageEtablissement(Request $request, $etablissement_id = 1)
     {
 
         $etablissement = Etablissement::find($etablissement_id);
@@ -135,12 +143,21 @@ class EtablissementController extends Controller
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $imageName = time() . '_' . $image->getClientOriginalName();
+            $picName = $image->getClientOriginalName();
+            $picName = preg_replace('/\s+/', '_', $picName); // Remplacer les espaces par des tirets bas
+            $picName = uniqid() . '_' . $picName; // Ajouter un identifiant unique devant
 
-            $path = $image->storeAs(
-                'public/etablissement/logo/'   . $etablissement->id,
-                $image->getClientOriginalName()
-            );
+            $separator     = '/';  //DIRECTORY_SEPARATOR;
+            $logoDirectory =
+                'etablissement' .    $separator . 'logo';
+            $path            = ".." .    $separator . "public" .    $separator . $logoDirectory;
+
+            \Illuminate\Support\Facades\File::makeDirectory($path, 0777, true, true);
+            $request->file('image')->move($path, $picName);
+            // $path = $image->storeAs(
+            //     'public/etablissement/logo/'   . $etablissement->id
+            //     $image->getClientOriginalName()
+            // );
 
             // $path = Storage::disk('local')->putFile(
             //     'public/etablissement/logo/'   . $etablissement->id,
@@ -152,20 +169,20 @@ class EtablissementController extends Controller
             //     $request->file('avatar'),
             //     $request->user()->id
             // );
-            $file = str_replace('public/', '', $path);
+            // $file = str_replace('public/', '', $path);
 
 
-            // Enregistrez le fichier dans la base de données
+            // // Enregistrez le fichier dans la base de données
             $file = new \App\Models\File([
-                'name' => $imageName,
-                'path' => $path,
+                'name' => $picName,
+                'path' => $logoDirectory . '/' . $picName,
             ]);
             $file->save();
             $etablissement->logo_id = $file->id;
         }
 
         $etablissement->save();
-        return $this->successResponse(['ok']);
+        return $this->show($etablissement->id);
         // Redirige ou renvoie une réponse
     }
 
@@ -352,7 +369,7 @@ class EtablissementController extends Controller
     }
     public function show($etablissement_id)
     {
-        $etablissement = Etablissement::find($etablissement_id)->load(['localisation', 'categories',   'specialites',   'Notation', 'agendas']);
+        $etablissement = Etablissement::find($etablissement_id)->load(['localisation', 'logo', 'categories',   'specialites',   'Notation', 'agendas']);
 
         // $etablissement = Etablissement::with(['localisation', 'categories', 'specialites', 'Notation', 'agendas'])
         // ->whereHas('localisation', function ($query) {
@@ -379,7 +396,7 @@ class EtablissementController extends Controller
     {
         $result         = [];
         $etablissements = Etablissement::where('user_id', $user_id)
-            ->with(['localisation', 'categories',   'specialites',   'Notation', 'agendas',])->get();
+            ->with(['localisation', 'categories', 'logo',  'specialites',   'Notation', 'agendas',])->get();
         if ($etablissements) {
             foreach ($etablissements as $etablissement) {
                 $etablissement->nmbre_alerte = $this->etablissementService->nombrealerteEtablissement($etablissement->id);
@@ -463,7 +480,10 @@ class EtablissementController extends Controller
                 $request->codePhone ??   $etablissement->codePhone;
 
 
-
+            $etablissement->numero_registre_commerce
+                = $request->numero_registre_commerce ??   $etablissement->numero_registre_commerce;
+            $etablissement->numero_contribuable
+                = $request->numero_contribuable ??   $etablissement->numero_contribuable;
             $etablissement->phone
                 = $request->phone ??   $etablissement->phone;
             $etablissement->email
@@ -473,6 +493,8 @@ class EtablissementController extends Controller
             $localisation = Localisation::find($etablissement->localisation_id);
             $localisation->boite_postale =
                 $request->boite_postale ?? $localisation->boite_postale;
+            $etablissement->codeCountry =
+                $request->codeCountry ?? $etablissement->codeCountry;
 
             $localisation->save();
             $etablissement->save();

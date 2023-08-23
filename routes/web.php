@@ -52,9 +52,7 @@ $router->group(['prefix' => 'api/v1', 'namespace' => 'v1'], function () use ($ro
 
 
 
-        $router->post('/{etablissement_id}/test', ['uses' => 'EtablissementController@storeOrUpdate']);
-
-   
+        $router->post('/{etablissement_id}/store_image', ['uses' => 'EtablissementController@storeImageEtablissement']);
     });
     /**
      * list specialite
